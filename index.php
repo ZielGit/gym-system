@@ -1,5 +1,8 @@
 <?php
+
+require 'vendor/autoload.php';
 require_once 'Config/Config.php';
+
 $ruta = !empty($_GET['url']) ? $_GET['url'] : "home/index";
 $array = explode("/", $ruta);
 $controller = ucfirst($array[0]);
@@ -18,8 +21,10 @@ if (!empty($array[2])) {
         $parametro = trim($parametro, ",");
     }
 }
+
 require_once 'Config/App/Autoload.php';
 require_once 'Config/Helpers.php';
+
 $dirControllers = "Controllers/" . $controller . ".php";
 if (file_exists($dirControllers)) {
     require_once $dirControllers;
@@ -27,9 +32,8 @@ if (file_exists($dirControllers)) {
     if (method_exists($controller, $metodo)) {
         $controller->$metodo($parametro);
     } else {
-        header('Location: '.base_url.'Errors');
+        header('Location: ' . base_url . 'Errors');
     }
 } else {
     header('Location: ' . base_url . 'Errors');
 }
-?>

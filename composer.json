@@ -13,5 +13,7 @@
             "email": "frans_421_12@hotmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
 }
