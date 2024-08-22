@@ -1,9 +1,9 @@
 <?php
 
 require 'vendor/autoload.php';
-require_once 'config/Config.php';
 
 use Config\Database;
+use Config\FastRoute;
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__);
@@ -15,37 +15,17 @@ header("Content-Type: application/json; charset=UTF-8");
 // Inicializar Eloquent
 Database::bootEloquent();
 
-$ruta = !empty($_GET['url']) ? $_GET['url'] : "home/index";
-$array = explode("/", $ruta);
-$controller = ucfirst($array[0]);
-$metodo = "index";
-$parametro = "";
-if (!empty($array[1])) {
-    if (!empty($array[1] != "")) {
-        $metodo = $array[1];
-    }
-}
-if (!empty($array[2])) {
-    if (!empty($array[2] != "")) {
-        for ($i = 2; $i < count($array); $i++) {
-            $parametro .= $array[$i] . ",";
-        }
-        $parametro = trim($parametro, ",");
-    }
-}
+$router = new FastRoute;
 
-require_once 'Config/App/Autoload.php';
-require_once 'Config/Helpers.php';
+// Cargar las rutas API y web
+$apiRoutes = require __DIR__ . '/routes/api.php';
+$webRoutes = require __DIR__ . '/routes/web.php';
 
-$dirControllers = "Controllers/" . $controller . ".php";
-if (file_exists($dirControllers)) {
-    require_once $dirControllers;
-    $controller = new $controller();
-    if (method_exists($controller, $metodo)) {
-        $controller->$metodo($parametro);
-    } else {
-        header('Location: ' . base_url . 'Errors');
-    }
-} else {
-    header('Location: ' . base_url . 'Errors');
-}
+// Agrupar las rutas API con el prefijo /api
+$router->group('/api', $apiRoutes);
+
+// Cargar las rutas web
+$webRoutes($router);
+
+// Ejecutar el enrutador
+$router->run();
