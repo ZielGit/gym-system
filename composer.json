@@ -1,0 +1,17 @@
+{
+    "name": "php/gym-system",
+    "description": "A monolithic API and Front-end application with pure PHP.",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Config\\": "config/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Frans",
+            "email": "frans_421_12@hotmail.com"
+        }
+    ],
+    "require": {}
+}
