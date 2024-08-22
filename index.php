@@ -1,7 +1,19 @@
 <?php
 
 require 'vendor/autoload.php';
-require_once 'Config/Config.php';
+require_once 'config/Config.php';
+
+use Config\Database;
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+
+// Inicializar Eloquent
+Database::bootEloquent();
 
 $ruta = !empty($_GET['url']) ? $_GET['url'] : "home/index";
 $array = explode("/", $ruta);
