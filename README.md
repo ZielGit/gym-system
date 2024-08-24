@@ -1,6 +1,12 @@
 # Sistema de Control de Gimnasio
 
-## Iniciar el Servidor PHP
+## Ejecutar las migraciones
+
+```bash
+php migrations/migrate.php
+```
+
+## Iniciar el servidor PHP
 
 ```bash
 php -S localhost:8080 -t .
