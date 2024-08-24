@@ -9,6 +9,7 @@ Database::bootEloquent();
 
 // Lista de archivos de migración
 $migrations = [
+    'create_users_table.php',
     // Agregar otras migraciones aquí
 ];
 
