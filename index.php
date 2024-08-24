@@ -9,12 +9,20 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-header("Access-Control-Allow-Origin: *");
-
 // Inicializar Eloquent
 Database::bootEloquent();
 
 $router = new FastRoute;
+
+// Definir encabezados condicionales
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+// Verificar si la ruta pertenece a una API
+if (strpos($requestUri, '/api') === 0) {
+    // Rutas de la API
+    header("Access-Control-Allow-Origin: *");
+    header("Content-Type: application/json; charset=UTF-8");
+}
 
 // Cargar las rutas API y web
 $apiRoutes = require __DIR__ . '/routes/api.php';
