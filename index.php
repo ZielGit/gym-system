@@ -10,7 +10,6 @@ $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
 
 // Inicializar Eloquent
 Database::bootEloquent();
