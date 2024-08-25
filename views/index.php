@@ -32,13 +32,13 @@
   <!-- 
   Essential stylesheets
   =====================================-->
-  <link rel="stylesheet" href="<?php echo base_url; ?>Assets/home/plugins/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo base_url; ?>Assets/home/plugins/icofont/icofont.min.css">
-  <link rel="stylesheet" href="<?php echo base_url; ?>Assets/home/plugins/slick-carousel/slick/slick.css">
-  <link rel="stylesheet" href="<?php echo base_url; ?>Assets/home/plugins/slick-carousel/slick/slick-theme.css">
+  <link rel="stylesheet" href="Assets/home/plugins/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="Assets/home/plugins/icofont/icofont.min.css">
+  <link rel="stylesheet" href="Assets/home/plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="Assets/home/plugins/slick-carousel/slick/slick-theme.css">
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="<?php echo base_url; ?>Assets/home/css/style.css">
+  <link rel="stylesheet" href="Assets/home/css/style.css">
 
 </head>
 
@@ -68,7 +68,7 @@
 	<nav class="navbar navbar-expand-lg navigation" id="navbar">
 		<div class="container">
 			<a class="navbar-brand" href="index.html">
-				<img src="<?php echo base_url; ?>Assets/images/logo.png" alt="" width="100" class="img-fluid">
+				<img src="Assets/images/logo.png" alt="" width="100" class="img-fluid">
 			</a>
 
 			<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"
@@ -82,7 +82,7 @@
 					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Services</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="<?php echo base_url . 'home/login'; ?>">Login</a></li>
+					<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
 				</ul>
 			</div>
 		</div>
@@ -91,7 +91,7 @@
 
 
 <!-- Slider Start -->
-<section class="banner" style="background-image: url('<?php echo base_url . 'Assets/images/principal.jpg'; ?>');">
+<section class="banner" style="background-image: url('Assets/images/principal.jpg');">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 col-md-12 col-xl-7">
@@ -154,14 +154,14 @@
 				<div class="col-lg-6 col-md-6 col-sm-6">
 					<div class="counter-stat">
 						<i class="icofont-doctor"></i>
-						<span class="h3 counter" data-count="<?php echo $data['clientes']['total']; ?>">0</span>
+						<span class="h3 counter" data-count="">0</span>
 						<p>Clientes</p>
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6">
 					<div class="counter-stat">
 						<i class="icofont-flag"></i>
-						<span class="h3 counter" data-count="<?php echo $data['entrenador']['total']; ?>">0</span>
+						<span class="h3 counter" data-count="">0</span>
 						<p>Entrenadores</p>
 					</div>
 				</div>
@@ -187,23 +187,20 @@
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-lg-12 testimonial-wrap-2">
-                <?php foreach ($data['planes'] as $plan) { ?>
 				<div class="testimonial-block style-2  gray-bg">
 					<i class="icofont-quote-right"></i>
 
 					<div class="testimonial-thumb">
-						<img src="<?php echo base_url .'Assets/images/planes/' . $plan['imagen']; ?>" alt="" class="img-fluid">
+						<img src="Assets/images/planes/" alt="" class="img-fluid">
 					</div>
 
 					<div class="client-info ">
-						<h4><?php echo $plan['plan']; ?></h4>
-						<span><?php echo $plan['precio_plan'] . ' ' . $plan['condicion']; ?></span>
+						<h4></h4>
+						<span></span>
 						<p>
-                        <?php echo $plan['descripcion']; ?>
 						</p>
 					</div>
 				</div>
-                <?php } ?>
 			</div>
 		</div>
 	</div>
@@ -216,7 +213,7 @@
 			<div class="col-lg-4 mr-auto col-sm-6">
 				<div class="widget mb-5 mb-lg-0">
 					<div class="logo mb-4">
-						<img src="<?php echo base_url; ?>Assets/images/logo.png" alt="" class="img-fluid" width="100">
+						<img src="Assets/images/logo.png" alt="" class="img-fluid" width="100">
 					</div>
 					<p>Tempora dolorem voluptatum nam vero assumenda voluptate, facilis ad eos obcaecati tenetur veritatis eveniet distinctio possimus.</p>
 
@@ -295,12 +292,12 @@
     <!-- 
     Essential Scripts
     =====================================-->
-    <script src="<?php echo base_url; ?>Assets/home/plugins/jquery/jquery.js"></script>
-    <script src="<?php echo base_url; ?>Assets/home/plugins/bootstrap/bootstrap.min.js"></script>
-    <script src="<?php echo base_url; ?>Assets/home/plugins/slick-carousel/slick/slick.min.js"></script>
-    <script src="<?php echo base_url; ?>Assets/home/plugins/shuffle/shuffle.min.js"></script>
+    <script src="Assets/home/plugins/jquery/jquery.js"></script>
+    <script src="Assets/home/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="Assets/home/plugins/slick-carousel/slick/slick.min.js"></script>
+    <script src="Assets/home/plugins/shuffle/shuffle.min.js"></script>
     
-    <script src="<?php echo base_url; ?>Assets/home/js/script.js"></script>
+    <script src="Assets/home/js/script.js"></script>
 
   </body>
   </html>
