@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Models\User;
+use Config\Request;
 use Config\PHPJWT;
 
 class AuthController
@@ -16,12 +17,12 @@ class AuthController
 
     public function login()
     {
-        $data = json_decode(file_get_contents("php://input"), true);
+        $request = new Request;
 
         // Verificar las credenciales del usuario (email y password)
-        $user = User::where('email', $data['email'])->first();
+        $user = User::where('email', $request->input('email'))->first();
 
-        if (!$user || !password_verify($data['password'], $user->password)) {
+        if (!$user || !password_verify($request->input('password'), $user->password)) {
             http_response_code(401);
             echo json_encode(['message' => 'Invalid credentials']);
             return;
