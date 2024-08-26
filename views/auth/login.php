@@ -6,16 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Melody Admin</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="Assets/vendors/iconfonts/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="Assets/vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="Assets/vendors/css/vendor.bundle.addons.css">
+  <link rel="stylesheet" href="/assets/vendors/iconfonts/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.addons.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="Assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="Assets/images/favicon-32x32.png" />
+  <link rel="shortcut icon" href="/assets/images/favicon-32x32.png" />
 </head>
 
 <body>
@@ -26,7 +26,7 @@
           <div class="col-lg-4 d-flex align-items-center justify-content-center">
             <div class="auth-form-transparent text-left p-3">
               <div class="brand-logo">
-                <img src="Assets/images/logo.png" alt="logo">
+                <img src="/assets/images/logo.png" alt="logo">
               </div>
               <h4>Welcome back!</h4>
               <h6 class="font-weight-light">Happy to see you again!</h6>
@@ -70,14 +70,14 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="Assets/vendors/js/vendor.bundle.base.js"></script>
-  <script src="Assets/vendors/js/vendor.bundle.addons.js"></script>
+  <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="/assets/vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- inject:js -->
-  <script src="Assets/js/off-canvas.js"></script>
-  <script src="Assets/js/hoverable-collapse.js"></script>
-  <script src="Assets/js/misc.js"></script>
-  <script src="Assets/js/sweetalert2.all.min.js"></script>
+  <script src="/assets/js/off-canvas.js"></script>
+  <script src="/assets/js/hoverable-collapse.js"></script>
+  <script src="/assets/js/misc.js"></script>
+  <script src="/assets/js/sweetalert2.all.min.js"></script>
   <script>
     var token = localStorage.getItem('token');
 
@@ -90,7 +90,7 @@
 
       $.ajax({
         type: "post",
-        url: 'api/login',
+        url: '/api/login',
         data: {
             email: $('#email').val(),
             password: $('#password').val()
@@ -99,7 +99,7 @@
         success: function(response) {
           console.log('response', response);
           localStorage.setItem('token', response.token);
-          location.href = '/';
+          location.href = '/admin/dashboard';
         }
       });
     });

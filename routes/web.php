@@ -1,8 +1,15 @@
 <?php
 
+use App\Controllers\AdminController;
+use App\Controllers\AuthController;
 use App\Controllers\HomeController;
 
 return function ($router) {
     $router->addRoute('GET', '/', [HomeController::class, 'index']);
-    $router->addRoute('GET', '/login', [HomeController::class, 'login']);
+
+    // Auth
+    $router->addRoute('GET', '/auth/login', [AuthController::class, 'login']);
+
+    // Admin
+    $router->addRoute('GET', '/admin/dashboard', [AdminController::class, 'dashboard']);
 };
