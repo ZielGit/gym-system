@@ -3,8 +3,8 @@
 namespace App\Controllers\Api;
 
 use App\Models\User;
-use Config\Request;
 use Config\PHPJWT;
+use Core\Request;
 
 class AuthController
 {
