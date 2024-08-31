@@ -18,7 +18,7 @@
                         Settings
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" id="logout">
+                    <a class="dropdown-item" href="#" id="logout">
                         <i class="fas fa-power-off text-primary"></i>
                         Logout
                     </a>
