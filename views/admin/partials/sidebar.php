@@ -3,7 +3,7 @@
         <li class="nav-item nav-profile">
             <div class="nav-link">
                 <div class="profile-image">
-                    <img src="Assets/images/user.png" alt="image" />
+                    <img src="/assets/images/user.png" alt="image" />
                 </div>
                 <div class="profile-name">
                     <p class="name">
@@ -16,7 +16,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="administracion/home">
+            <a class="nav-link" href="dashboard">
                 <i class="fa fa-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
@@ -41,7 +41,7 @@
             </a>
             <div class="collapse" id="page-layouts">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="clientes">Listado</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="customers">Listado</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="clientes/plan">Plan</a></li>
                     <li class="nav-item"> <a class="nav-link" href="clientes/pagos">Pagos</a></li>
                 </ul>
