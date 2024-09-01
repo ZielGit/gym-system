@@ -24,12 +24,16 @@ class CustomerController
     {
         $request = new Request;
         $customer = Customer::create($request->all());
-        echo json_encode($customer);
+        $data = [
+            'message' => 'Customer created successfully',
+            'customer' => $customer
+        ];
+        echo json_encode($data);
     }
 
-    public function show()
+    public function show($id)
     {
-        $customer = Customer::all();
+        $customer = Customer::find($id);
         echo json_encode($customer);
     }
 
@@ -38,7 +42,11 @@ class CustomerController
         $request = new Request;
         $customer = Customer::find($id);
         $customer->update($request->all());
-        echo json_encode($customer);
+        $data = [
+            'message' => 'Customer updated successfully',
+            'customer' => $customer
+        ];
+        echo json_encode($data);
     }
 
     public function updateStatus($id)
@@ -48,6 +56,10 @@ class CustomerController
         $customer->update([
             'status' => $request->input('status')
         ]);
-        echo json_encode($customer);
+        $data = [
+            'message' => 'Customer status updated successfully',
+            'customer' => $customer
+        ];
+        echo json_encode($data);
     }
 }
