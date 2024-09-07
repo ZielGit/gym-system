@@ -148,18 +148,17 @@
 					<div class="col-lg-6 col-md-6 col-sm-6">
 						<div class="counter-stat">
 							<i class="icofont-doctor"></i>
-							<span class="h3 counter" data-count="">0</span>
+							<span class="h3 counter" id="customer-counter" data-count="">0</span>
 							<p>Clientes</p>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6">
 						<div class="counter-stat">
 							<i class="icofont-flag"></i>
-							<span class="h3 counter" data-count="">0</span>
+							<span class="h3 counter" id="coach-counter" data-count="">0</span>
 							<p>Entrenadores</p>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -286,5 +285,19 @@
     <script src="/assets/home/plugins/slick-carousel/slick/slick.min.js"></script>
     <script src="/assets/home/plugins/shuffle/shuffle.min.js"></script>
     <script src="/assets/home/js/script.js"></script>
+	<script>
+		const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
+
+		$.ajax({
+			type: 'get',
+			url: `${api_admin_url}/home`,
+			dataType: "json",
+			success: function(response) {
+				console.log('response', response);
+				$('#customer-counter').attr('data-count', response.customers);
+				$('#coach-counter').attr('data-count', response.coaches);
+			}
+		});
+	</script>
 </body>
 </html>
