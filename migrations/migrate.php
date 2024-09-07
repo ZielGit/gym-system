@@ -10,6 +10,7 @@ Database::bootEloquent();
 // Lista de archivos de migración
 $migrations = [
     'create_users_table.php',
+    'create_coaches_table.php',
     'create_customers_table.php',
 ];
 
