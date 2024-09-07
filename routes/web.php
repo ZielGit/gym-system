@@ -12,5 +12,6 @@ return function ($router) {
 
     // Admin
     $router->addRoute('GET', '/admin/dashboard', [AdminController::class, 'dashboard']);
+    $router->addRoute('GET', '/admin/coaches', [AdminController::class, 'coach']);
     $router->addRoute('GET', '/admin/customers', [AdminController::class, 'customer']);
 };

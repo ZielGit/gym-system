@@ -60,7 +60,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="entrenador">
+            <a class="nav-link" href="coaches">
                 <i class="fa fa-user menu-icon"></i>
                 <span class="menu-title">Entrenador</span>
             </a>
