@@ -111,7 +111,6 @@ startSection('title'); ?>
     <script>
         var tablaClientes;
         const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
-        const token = localStorage.getItem('token');
 
         tablaClientes = $('#tablaClientes').DataTable({
             responsive: true,

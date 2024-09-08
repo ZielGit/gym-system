@@ -36,6 +36,7 @@ class AuthController
 
         $response = [
             'message' => 'Hi '. $user->name,
+            'user' => $user,
             'token' => $token,
             'token_type' => 'Bearer'
         ];

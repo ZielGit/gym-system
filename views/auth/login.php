@@ -99,6 +99,7 @@
         success: function(response) {
           console.log('response', response);
           localStorage.setItem('token', response.token);
+          localStorage.setItem('user', JSON.stringify(response.user));
           location.href = '/admin/dashboard';
         }
       });

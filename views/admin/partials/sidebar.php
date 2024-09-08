@@ -6,12 +6,8 @@
                     <img src="/assets/images/user.png" alt="image" />
                 </div>
                 <div class="profile-name">
-                    <p class="name">
-                        <!-- <?php echo $_SESSION['nombre']; ?> -->
-                    </p>
-                    <p class="designation">
-                        <!-- <?php echo $_SESSION['usuario']; ?> -->
-                    </p>
+                    <p class="name user-name"></p>
+                    <p class="designation user-email"></p>
                 </div>
             </div>
         </li>

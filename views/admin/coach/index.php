@@ -119,7 +119,6 @@ startSection('title'); ?>
     <script>
         var tablaEntrenadores;
         const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
-        const token = localStorage.getItem('token');
 
         tablaEntrenadores = $('#tablaEntrenadores').DataTable({
             responsive: true,

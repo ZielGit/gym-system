@@ -58,9 +58,26 @@
     <script src="/assets/js/chart.min.js"></script>
     <script src="/assets/js/funciones.js"></script>
     <script>
+        const token = localStorage.getItem('token');
+
+        // if (!accessToken) {
+        //     location.href = '/';
+        // }
+
+        // $.ajaxSetup({
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`,
+        //     },
+        // });
+
+        var user = JSON.parse(localStorage.getItem('user'));
+        const user_name = user.name;
+        const user_email = user.email;
+        $('.user-name').html(user_name);
+        $('.user-email').html(user_email);
+
         $('#logout').click(function(e) {
             e.preventDefault();
-
             $.ajax({
                 type: "get",
                 url: '/api/logout',
@@ -68,6 +85,7 @@
                 success: function(response) {
                     console.log('response', response);
                     localStorage.removeItem('token');
+                    localStorage.removeItem('user');
                     location.href = '/';
                 }
             });
