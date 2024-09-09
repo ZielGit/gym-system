@@ -1,12 +1,12 @@
 <?php
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use Config\Database;
 use Config\FastRoute;
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->load();
 
 // Inicializar Eloquent
@@ -25,8 +25,8 @@ if (strpos($requestUri, '/api') === 0) {
 }
 
 // Cargar las rutas API y web
-$apiRoutes = require __DIR__ . '/routes/api.php';
-$webRoutes = require __DIR__ . '/routes/web.php';
+$apiRoutes = require __DIR__ . '/../routes/api.php';
+$webRoutes = require __DIR__ . '/../routes/web.php';
 
 // Agrupar las rutas API con el prefijo /api
 $router->group('/api', $apiRoutes);
