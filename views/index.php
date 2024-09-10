@@ -30,13 +30,13 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
 
   <!-- Essential stylesheets -->
-  <link rel="stylesheet" href="/assets/home/plugins/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/home/plugins/icofont/icofont.min.css">
-  <link rel="stylesheet" href="/assets/home/plugins/slick-carousel/slick/slick.css">
-  <link rel="stylesheet" href="/assets/home/plugins/slick-carousel/slick/slick-theme.css">
+  <link rel="stylesheet" href="/novena/plugins/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/novena/plugins/icofont/icofont.min.css">
+  <link rel="stylesheet" href="/novena/plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="/novena/plugins/slick-carousel/slick/slick-theme.css">
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="/assets/home/css/style.css">
+  <link rel="stylesheet" href="/novena/css/style.css">
 </head>
 <body id="top">
 	<header>
@@ -63,7 +63,7 @@
 		<nav class="navbar navbar-expand-lg navigation" id="navbar">
 			<div class="container">
 				<a class="navbar-brand" href="index.html">
-					<img src="/assets/images/logo.png" alt="" width="100" class="img-fluid">
+					<img src="/melody/images/logo.png" alt="" width="100" class="img-fluid">
 				</a>
 
 				<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"
@@ -85,7 +85,7 @@
 	</header>
 
 	<!-- Slider Start -->
-	<section class="banner" style="background-image: url('/assets/images/principal.jpg');">
+	<section class="banner" style="background-image: url('/melody/images/principal.jpg');">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12 col-xl-7">
@@ -184,7 +184,7 @@
 						<i class="icofont-quote-right"></i>
 
 						<div class="testimonial-thumb">
-							<img src="/assets/images/planes/" alt="" class="img-fluid">
+							<img src="/melody/images/planes/" alt="" class="img-fluid">
 						</div>
 
 						<div class="client-info ">
@@ -206,7 +206,7 @@
 				<div class="col-lg-4 mr-auto col-sm-6">
 					<div class="widget mb-5 mb-lg-0">
 						<div class="logo mb-4">
-							<img src="/assets/images/logo.png" alt="" class="img-fluid" width="100">
+							<img src="/melody/images/logo.png" alt="" class="img-fluid" width="100">
 						</div>
 						<p>Tempora dolorem voluptatum nam vero assumenda voluptate, facilis ad eos obcaecati tenetur veritatis eveniet distinctio possimus.</p>
 
@@ -280,11 +280,11 @@
 		</div>
 	</footer>
     <!-- Essential Scripts -->
-    <script src="/assets/home/plugins/jquery/jquery.js"></script>
-    <script src="/assets/home/plugins/bootstrap/bootstrap.min.js"></script>
-    <script src="/assets/home/plugins/slick-carousel/slick/slick.min.js"></script>
-    <script src="/assets/home/plugins/shuffle/shuffle.min.js"></script>
-    <script src="/assets/home/js/script.js"></script>
+    <script src="/novena/plugins/jquery/jquery.js"></script>
+    <script src="/novena/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="/novena/plugins/slick-carousel/slick/slick.min.js"></script>
+    <script src="/novena/plugins/shuffle/shuffle.min.js"></script>
+    <script src="/novena/js/script.js"></script>
 	<script>
 		const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
 
