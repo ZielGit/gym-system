@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Gimnasio - <?php yieldContent('title'); ?></title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="/assets/vendors/iconfonts/font-awesome/css/all.min.css">
-    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.addons.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/snackbar.min.css">
-    <link href="/assets/css/jquery-ui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/melody/vendors/iconfonts/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="/melody/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="/melody/vendors/css/vendor.bundle.addons.css">
+    <link rel="stylesheet" href="/melody/css/style.css">
+    <link rel="stylesheet" href="/melody/css/snackbar.min.css">
+    <link href="/melody/css/jquery-ui.min.css" rel="stylesheet" />
     <?php yieldContent('styles'); ?>
     <!-- endinject -->
-    <link rel="shortcut icon" href="/assets/images/favicon-32x32.png" />
+    <link rel="shortcut icon" href="/melody/images/favicon-32x32.png" />
 </head>
 <body>
     <div class="container-scroller">
@@ -42,22 +42,23 @@
     <!-- container-scroller -->
 
     <!-- plugins:js -->
-    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
-    <script src="/assets/vendors/js/vendor.bundle.addons.js"></script>
+    <script src="/melody/vendors/js/vendor.bundle.base.js"></script>
+    <script src="/melody/vendors/js/vendor.bundle.addons.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page-->
     <!-- End plugin js for this page-->
     <!-- inject:js -->
-    <script src="/assets/js/off-canvas.js"></script>
-    <script src="/assets/js/hoverable-collapse.js"></script>
-    <script src="/assets/js/misc.js"></script>
-    <script src="/assets/js/jquery-ui.min.js"></script>
-    <script src="/assets/js/snackbar.min.js"></script>
+    <script src="/melody/js/off-canvas.js"></script>
+    <script src="/melody/js/hoverable-collapse.js"></script>
+    <script src="/melody/js/misc.js"></script>
+    <script src="/melody/js/jquery-ui.min.js"></script>
+    <script src="/melody/js/snackbar.min.js"></script>
     <!-- endinject -->
-    <script src="/assets/js/sweetalert2.all.min.js"></script>
-    <script src="/assets/js/chart.min.js"></script>
-    <script src="/assets/js/funciones.js"></script>
+    <script src="/melody/js/sweetalert2.all.min.js"></script>
+    <script src="/melody/js/chart.min.js"></script>
+    <script src="/melody/js/funciones.js"></script>
     <script>
+        const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
         const token = localStorage.getItem('token');
 
         // if (!accessToken) {
@@ -80,7 +81,7 @@
             e.preventDefault();
             $.ajax({
                 type: "get",
-                url: '/api/logout',
+                url: `${api_admin_url}/logout`,
                 dataType: "json",
                 success: function(response) {
                     console.log('response', response);

@@ -118,7 +118,6 @@ startSection('title'); ?>
 <?php startSection('scripts'); ?>
     <script>
         var tablaEntrenadores;
-        const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
 
         tablaEntrenadores = $('#tablaEntrenadores').DataTable({
             responsive: true,

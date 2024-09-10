@@ -110,7 +110,6 @@ startSection('title'); ?>
 <?php startSection('scripts'); ?>
     <script>
         var tablaClientes;
-        const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
 
         tablaClientes = $('#tablaClientes').DataTable({
             responsive: true,
