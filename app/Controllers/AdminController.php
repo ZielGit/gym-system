@@ -18,4 +18,9 @@ class AdminController extends Controller
     {
         return $this->view('admin.customer.index');
     }
+
+    public function user()
+    {
+        return $this->view('admin.user.index');
+    }
 }

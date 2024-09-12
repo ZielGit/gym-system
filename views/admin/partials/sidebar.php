@@ -18,12 +18,6 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="usuarios">
-                <i class="fa fa-user menu-icon"></i>
-                <span class="menu-title">Empleados</span>
-            </a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="planes">
                 <i class="fa fa-list-alt menu-icon"></i>
                 <span class="menu-title">Planes y servicios</span>
@@ -59,6 +53,12 @@
             <a class="nav-link" href="coaches">
                 <i class="fa fa-user menu-icon"></i>
                 <span class="menu-title">Entrenador</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="users">
+                <i class="fa fa-user menu-icon"></i>
+                <span class="menu-title">Usuarios</span>
             </a>
         </li>
         <li class="nav-item">
