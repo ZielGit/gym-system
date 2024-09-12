@@ -4,6 +4,7 @@ use App\Controllers\Api\AuthController;
 use App\Controllers\Api\CoachController;
 use App\Controllers\Api\CustomerController;
 use App\Controllers\Api\HomeController;
+use App\Controllers\Api\UserController;
 
 return function ($router) {
     $router->addRoute('GET', '/home', [HomeController::class, 'index']);
@@ -25,4 +26,11 @@ return function ($router) {
     $router->addRoute('GET', '/coaches/{id:\d+}', [CoachController::class, 'show']);
     $router->addRoute('PUT', '/coaches/{id:\d+}', [CoachController::class, 'update']);
     $router->addRoute('PUT', '/coaches/status/{id:\d+}', [CoachController::class, 'updateStatus']);
+
+    // Users
+    $router->addRoute('GET', '/users', [UserController::class, 'index']);
+    $router->addRoute('POST', '/users', [UserController::class, 'store']);
+    $router->addRoute('GET', '/users/{id:\d+}', [UserController::class, 'show']);
+    $router->addRoute('PUT', '/users/{id:\d+}', [UserController::class, 'update']);
+    $router->addRoute('PUT', '/users/status/{id:\d+}', [UserController::class, 'updateStatus']);
 };

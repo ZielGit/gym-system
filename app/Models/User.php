@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    protected $table = 'users';
-
-    // Definir los campos que se pueden asignar masivamente
     protected $fillable = [
+        'document_type',
+        'document_number',
         'name',
-        'lastname',
+        'paternal_surname',
+        'maternal_surname',
         'email',
+        'phone',
         'password',
         'status',
     ];
