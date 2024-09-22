@@ -23,4 +23,9 @@ class AdminController extends Controller
     {
         return $this->view('admin.user.index');
     }
+
+    public function plan()
+    {
+        return $this->view('admin.plan.index');
+    }
 }

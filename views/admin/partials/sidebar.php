@@ -18,9 +18,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="planes">
+            <a class="nav-link" href="plans">
                 <i class="fa fa-list-alt menu-icon"></i>
-                <span class="menu-title">Planes y servicios</span>
+                <span class="menu-title">Planes</span>
             </a>
         </li>
         <li class="nav-item">
