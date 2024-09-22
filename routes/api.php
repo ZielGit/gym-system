@@ -39,6 +39,6 @@ return function ($router) {
     $router->addRoute('GET', '/plans', [PlanController::class, 'index']);
     $router->addRoute('POST', '/plans', [PlanController::class, 'store']);
     $router->addRoute('GET', '/plans/{id:\d+}', [PlanController::class, 'show']);
-    $router->addRoute('PUT', '/plans/{id:\d+}', [PlanController::class, 'update']);
+    $router->addRoute('POST', '/plans/{id:\d+}', [PlanController::class, 'update']);
     $router->addRoute('PUT', '/plans/status/{id:\d+}', [PlanController::class, 'updateStatus']);
 };

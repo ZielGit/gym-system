@@ -23,12 +23,41 @@ class PlanController
     public function store()
     {
         $request = new Request;
-        $plan = Plan::create($request->all());
+
         $data = [
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'condition' => $request->input('condition'),
+        ];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/public/files/plans/image/';
+            // Verifica si la carpeta existe, si no, la crea
+            if (!file_exists($destination_folder)) {
+                mkdir($destination_folder, 0777, true);
+            }
+
+            $allowedTypes = [
+                'image/jpeg' => 'jpg',
+                'image/png' => 'png'
+            ];
+
+            if ($image['type'] == "image/jpeg" || $image['type'] == 'image/png') {
+                $name_image = 'plan-' . date('YmdHis') . '.' . $allowedTypes[$image['type']];
+                move_uploaded_file($image['tmp_name'], $destination_folder . $name_image);
+                $url_image_server = $_ENV['APP_URL'] . '/files/plans/image/' . $name_image;
+                $data['image'] = $url_image_server;
+            }
+        }
+
+        $plan = Plan::create($data);
+        $response = [
             'message' => 'Plan created successfully',
             'plan' => $plan
         ];
-        echo json_encode($data);
+        echo json_encode($response);
     }
 
     public function show($id)
@@ -40,8 +69,38 @@ class PlanController
     public function update($id)
     {
         $request = new Request;
+
+        $data = [
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'condition' => $request->input('condition'),
+        ];
+
         $plan = Plan::find($id);
-        $plan->update($request->all());
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/public/files/plans/image/';
+            // Verifica si la carpeta existe, si no, la crea
+            if (!file_exists($destination_folder)) {
+                mkdir($destination_folder, 0777, true);
+            }
+
+            $allowedTypes = [
+                'image/jpeg' => 'jpg',
+                'image/png' => 'png'
+            ];
+
+            if ($image['type'] == "image/jpeg" || $image['type'] == 'image/png') {
+                $name_image = 'plan-' . date('YmdHis') . '.' . $allowedTypes[$image['type']];
+                move_uploaded_file($image['tmp_name'], $destination_folder . $name_image);
+                $url_image_server = $_ENV['APP_URL'] . '/files/plans/image/' . $name_image;
+                $data['image'] = $url_image_server;
+            }
+        }
+
+        $plan->update($data);
         $data = [
             'message' => 'Plan updated successfully',
             'plan' => $plan
