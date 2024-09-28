@@ -13,6 +13,7 @@ $migrations = [
     'create_coaches_table.php',
     'create_customers_table.php',
     'create_plans_table.php',
+    'create_routines_table.php',
 ];
 
 foreach ($migrations as $migration) {

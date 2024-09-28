@@ -5,6 +5,7 @@ use App\Controllers\Api\CoachController;
 use App\Controllers\Api\CustomerController;
 use App\Controllers\Api\HomeController;
 use App\Controllers\Api\PlanController;
+use App\Controllers\Api\RoutineController;
 use App\Controllers\Api\UserController;
 
 return function ($router) {
@@ -41,4 +42,11 @@ return function ($router) {
     $router->addRoute('GET', '/plans/{id:\d+}', [PlanController::class, 'show']);
     $router->addRoute('POST', '/plans/{id:\d+}', [PlanController::class, 'update']);
     $router->addRoute('PUT', '/plans/status/{id:\d+}', [PlanController::class, 'updateStatus']);
+
+    // Routines
+    $router->addRoute('GET', '/routines', [RoutineController::class, 'index']);
+    $router->addRoute('POST', '/routines', [RoutineController::class, 'store']);
+    $router->addRoute('GET', '/routines/{id:\d+}', [RoutineController::class, 'show']);
+    $router->addRoute('PUT', '/routines/{id:\d+}', [RoutineController::class, 'update']);
+    $router->addRoute('PUT', '/routines/status/{id:\d+}', [RoutineController::class, 'updateStatus']);
 };
