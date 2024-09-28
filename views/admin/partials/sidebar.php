@@ -44,7 +44,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="rutinas">
+            <a class="nav-link" href="routines">
                 <i class="fa fa-list menu-icon"></i>
                 <span class="menu-title">Rutinas</span>
             </a>
