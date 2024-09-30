@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $table = 'customers';
-
     protected $fillable = [
         'document_type',
         'document_number',
@@ -18,4 +16,13 @@ class Customer extends Model
         'address',
         'status',
     ];
+
+    public function scopeSearch($query, $value)
+    {
+        if($value) {
+            $query->where('customers.name', 'LIKE', "%$value%");
+            $query->orWhere('customers.lastname', 'LIKE', "%$value%");
+        }
+        return $query;
+    }
 }

@@ -16,7 +16,8 @@ class RoutineController
 
     public function index()
     {
-        $routines = Routine::all();
+        $request = new Request;
+        $routines = Routine::search($request->input('search'))->get();
         echo json_encode($routines);
     }
 

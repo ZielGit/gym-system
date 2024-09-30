@@ -17,4 +17,14 @@ class Coach extends Model
         'address',
         'status',
     ];
+
+    public function scopeSearch($query, $value)
+    {
+        if($value) {
+            $query->where('coaches.name', 'LIKE', "%$value%");
+            $query->orWhere('coaches.paternal_surname', 'LIKE', "%$value%");
+            $query->orWhere('coaches.maternal_surname', 'LIKE', "%$value%");
+        }
+        return $query;
+    }
 }

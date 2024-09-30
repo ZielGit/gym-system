@@ -16,7 +16,8 @@ class CoachController
 
     public function index()
     {
-        $coaches = Coach::all();
+        $request = new Request;
+        $coaches = Coach::search($request->input('search'))->get();
         echo json_encode($coaches);
     }
 

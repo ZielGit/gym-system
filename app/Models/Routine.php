@@ -11,4 +11,13 @@ class Routine extends Model
         'description',
         'status',
     ];
+
+    public function scopeSearch($query, $value)
+    {
+        if($value) {
+            $query->Where('routines.day', 'LIKE', "%$value%");
+            $query->orwhere('routines.description', 'LIKE', "%$value%");
+        }
+        return $query;
+    }
 }

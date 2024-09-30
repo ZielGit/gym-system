@@ -16,7 +16,8 @@ class CustomerController
 
     public function index()
     {
-        $customers = Customer::all();
+        $request = new Request;
+        $customers = Customer::search($request->input('search'))->get();
         echo json_encode($customers);
     }
 
