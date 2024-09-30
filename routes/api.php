@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\Api\AttendanceController;
 use App\Controllers\Api\AuthController;
 use App\Controllers\Api\CoachController;
 use App\Controllers\Api\CustomerController;
@@ -49,4 +50,11 @@ return function ($router) {
     $router->addRoute('GET', '/routines/{id:\d+}', [RoutineController::class, 'show']);
     $router->addRoute('PUT', '/routines/{id:\d+}', [RoutineController::class, 'update']);
     $router->addRoute('PUT', '/routines/status/{id:\d+}', [RoutineController::class, 'updateStatus']);
+
+    // Attendances
+    $router->addRoute('GET', '/attendances', [AttendanceController::class, 'index']);
+    $router->addRoute('POST', '/attendances', [AttendanceController::class, 'store']);
+    $router->addRoute('GET', '/attendances/{id:\d+}', [AttendanceController::class, 'show']);
+    $router->addRoute('PUT', '/attendances/{id:\d+}', [AttendanceController::class, 'update']);
+    $router->addRoute('PUT', '/attendances/status/{id:\d+}', [AttendanceController::class, 'updateStatus']);
 };
