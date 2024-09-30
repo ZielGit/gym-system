@@ -33,4 +33,9 @@ class AdminController extends Controller
     {
         return $this->view('admin.routine.index');
     }
+
+    public function attendance()
+    {
+        return $this->view('admin.attendance.index');
+    }
 }

@@ -72,6 +72,7 @@
         // });
 
         var user = JSON.parse(localStorage.getItem('user'));
+        const user_id = user.id;
         const user_name = user.name;
         const user_email = user.email;
         $('.user-name').html(user_name);

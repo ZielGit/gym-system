@@ -38,7 +38,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="asistencias">
+            <a class="nav-link" href="attendances">
                 <i class="fa fa-calendar menu-icon"></i>
                 <span class="menu-title">Asistencias</span>
             </a>
