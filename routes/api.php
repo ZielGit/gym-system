@@ -43,6 +43,8 @@ return function ($router) {
     $router->addRoute('GET', '/plans/{id:\d+}', [PlanController::class, 'show']);
     $router->addRoute('POST', '/plans/{id:\d+}', [PlanController::class, 'update']);
     $router->addRoute('PUT', '/plans/status/{id:\d+}', [PlanController::class, 'updateStatus']);
+    $router->addRoute('GET', '/plans/customer', [PlanController::class, 'indexPlanCustomer']);
+    $router->addRoute('POST', '/plans/customer', [PlanController::class, 'storePlanCustomer']);
 
     // Routines
     $router->addRoute('GET', '/routines', [RoutineController::class, 'index']);

@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use App\Middleware\AuthMiddleware;
 use App\Models\Plan;
+use App\Models\PlanDetails;
 use Core\Request;
 
 class PlanController
@@ -16,7 +17,8 @@ class PlanController
 
     public function index()
     {
-        $plans = Plan::all();
+        $request = new Request;
+        $plans = Plan::search($request->input('search'))->get();
         echo json_encode($plans);
     }
 
@@ -118,6 +120,37 @@ class PlanController
         $data = [
             'message' => 'Plan status updated successfully',
             'plan' => $plan
+        ];
+        echo json_encode($data);
+    }
+
+    public function indexPlanCustomer()
+    {
+        $planDetails = PlanDetails::with(['customer', 'plan'])->get();
+        echo json_encode($planDetails);
+    }
+
+    public function storePlanCustomer()
+    {
+        $request = new Request;
+        $date = date("Y-m-d");
+        $plan = Plan::find($request->input('plan_id'));
+        if ($plan->condition == 'MENSUAL') {
+            $due_date = date("Y-m-d", strtotime($date . '+1 month'));
+        }else { // ANUAL
+            $due_date = date("Y-m-d", strtotime($date . '+1 year'));
+        }
+        $planDetails = PlanDetails::create([
+            'customer_id'=> $request->input('customer_id'),
+            'plan_id' => $request->input('plan_id'),
+            'date' => $date,
+            'hour' => date("Y-m-d H:i:s"),
+            'due_date' => $due_date,
+            'user_id' => $request->input('user_id'),
+        ]);
+        $data = [
+            'message' => 'Client plan created successfully',
+            'planDetails' => $planDetails
         ];
         echo json_encode($data);
     }
