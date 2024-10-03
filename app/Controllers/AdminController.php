@@ -19,6 +19,11 @@ class AdminController extends Controller
         return $this->view('admin.customer.index');
     }
 
+    public function customerPlan()
+    {
+        return $this->view('admin.customer.plan');
+    }
+
     public function user()
     {
         return $this->view('admin.user.index');

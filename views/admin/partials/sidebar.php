@@ -32,7 +32,7 @@
             <div class="collapse" id="page-layouts">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="customers">Listado</a></li>
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="clientes/plan">Plan</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="customers/plan">Plan</a></li>
                     <li class="nav-item"> <a class="nav-link" href="clientes/pagos">Pagos</a></li>
                 </ul>
             </div>
