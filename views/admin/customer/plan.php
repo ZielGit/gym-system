@@ -170,7 +170,7 @@ startSection('title'); ?>
                 { 'data': 'due_date' },
                 {
                     data: 'id',
-                    render: function (data, full) {
+                    render: function (data, type, full) {
                         if (full.status == 1) {
                             return `<span class="badge bg-success">Activo</span>`
                         } else {
@@ -180,7 +180,7 @@ startSection('title'); ?>
                 },
                 {
                     data: 'id',
-                    render: function (data, full) {
+                    render: function (data, type, full) {
                         if (full.status == 1) {
                             return `<div>
                                 <button class="btn btn-outline-primary" type="button"><i class="fas fa-dollar-sign"></i></button>
