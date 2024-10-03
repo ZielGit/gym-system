@@ -14,4 +14,12 @@ class Plan extends Model
         'image',
         'status',
     ];
+
+    public function scopeSearch($query, $value)
+    {
+        if($value) {
+            $query->where('plans.name', 'LIKE', "%$value%");
+        }
+        return $query;
+    }
 }
