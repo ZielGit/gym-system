@@ -33,7 +33,7 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/admin/customers">Listado</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/admin/customers/plan">Plan</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/admin/customers/pagos">Pagos</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="/admin/customers/payment">Pagos</a></li>
                 </ul>
             </div>
         </li>
