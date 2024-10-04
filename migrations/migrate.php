@@ -16,6 +16,7 @@ $migrations = [
     'create_plan_details_table.php',
     'create_routines_table.php',
     'create_attendances_table.php',
+    'create_payments_table.php',
 ];
 
 foreach ($migrations as $migration) {

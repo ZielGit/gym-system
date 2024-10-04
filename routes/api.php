@@ -5,6 +5,7 @@ use App\Controllers\Api\AuthController;
 use App\Controllers\Api\CoachController;
 use App\Controllers\Api\CustomerController;
 use App\Controllers\Api\HomeController;
+use App\Controllers\Api\PaymentController;
 use App\Controllers\Api\PlanController;
 use App\Controllers\Api\RoutineController;
 use App\Controllers\Api\UserController;
@@ -59,4 +60,8 @@ return function ($router) {
     $router->addRoute('GET', '/attendances/{id:\d+}', [AttendanceController::class, 'show']);
     $router->addRoute('PUT', '/attendances/{id:\d+}', [AttendanceController::class, 'update']);
     $router->addRoute('PUT', '/attendances/status/{id:\d+}', [AttendanceController::class, 'updateStatus']);
+
+    // Payments
+    $router->addRoute('GET', '/payments', [PaymentController::class, 'index']);
+    $router->addRoute('POST', '/payments', [PaymentController::class, 'store']);
 };
