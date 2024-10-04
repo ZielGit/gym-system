@@ -23,6 +23,7 @@ return function ($router) {
     $router->addRoute('GET', '/customers/{id:\d+}', [CustomerController::class, 'show']);
     $router->addRoute('PUT', '/customers/{id:\d+}', [CustomerController::class, 'update']);
     $router->addRoute('PUT', '/customers/status/{id:\d+}', [CustomerController::class, 'updateStatus']);
+    $router->addRoute('GET', '/customers/plan', [CustomerController::class, 'plan']);
 
     // Coaches
     $router->addRoute('GET', '/coaches', [CoachController::class, 'index']);

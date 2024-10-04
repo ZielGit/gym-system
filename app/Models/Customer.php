@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
@@ -24,5 +26,15 @@ class Customer extends Model
             $query->orWhere('customers.lastname', 'LIKE', "%$value%");
         }
         return $query;
+    }
+
+    public function planDetails(): HasMany
+    {
+        return $this->hasMany(PlanDetails::class);
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 }

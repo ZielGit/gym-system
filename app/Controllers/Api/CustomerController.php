@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use App\Middleware\AuthMiddleware;
 use App\Models\Customer;
+use App\Models\Payment;
 use Core\Request;
 
 class CustomerController
@@ -62,5 +63,21 @@ class CustomerController
             'customer' => $customer
         ];
         echo json_encode($data);
+    }
+
+    public function plan()
+    {
+        $request = new Request;
+        $customers = Customer::search($request->input('search'))
+            ->with(['planDetails:id,customer_id,plan_id,due_date', 'planDetails.plan:id,name,price'])
+            ->where('status', 1)
+            ->get();
+        echo json_encode($customers);
+    }
+
+    public function payments($id)
+    {
+        $payments = Payment::where('customer_id', $id)->get();
+        echo json_encode($payments);
     }
 }

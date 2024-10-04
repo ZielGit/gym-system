@@ -109,12 +109,12 @@ startSection('title'); ?>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="frmPago" onsubmit="registrarPago(event)" autocomplete="off">
+                <form id="frmPago" onsubmit="savePago(event)" autocomplete="off">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
-                                    <input type="hidden" id="id_planCliente" name="id_planCliente" required>
+                                    <input type="hidden" id="plan_detail_id" name="plan_detail_id" required>
                                     <label for="nombre_cliente"><i class="fas fa-users"></i> Buscar Cliente</label>
                                     <input type="text" id="nombre_cliente" class="form-control" placeholder="Buscar..." required>
                                 </div>
@@ -143,6 +143,53 @@ startSection('title'); ?>
                         <button class="btn btn-outline-primary" type="submit">Procesar Pago</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Lista de Pagos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="id">
+                    <table class="table table-striped table-hover display responsive nowrap" id="tablaClientePago" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Cliente</th>
+                                <th>Plan</th>
+                                <th>Precio</th>
+                                <th>Fecha de pago</th>
+                                <th>Hora</th>
+                                <th>Mes y Año</th>
+                                <th>Acciones</th>
+                            </tr>
+                        <!-- </thead>
+                        <tbody>
+                            <?php foreach ($data['pagos'] as $row) { ?>
+                                <tr>
+                                    <td><?php echo $row['id']; ?></td>
+                                    <td><?php echo $row['nombre']; ?></td>
+                                    <td><?php echo $row['plan']; ?></td>
+                                    <td><?php echo $row['precio_plan']; ?></td>
+                                    <td><?php echo $row['fecha']; ?></td>
+                                    <td><?php echo $row['hora']; ?></td>
+                                    <td><?php echo date("M.Y", strtotime($row['fecha'])); ?></td>
+                                    <td><a class="btn btn-outline-danger" target="_blank" href="clientes/pdfPagos/<?php echo $row['id_cliente']; ?>"><i class="fas fa-file-pdf"></i></a></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody> -->
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -184,11 +231,11 @@ startSection('title'); ?>
                         if (full.status == 1) {
                             return `<div>
                                 <button class="btn btn-outline-primary" type="button"><i class="fas fa-dollar-sign"></i></button>
-                                <a class="btn btn-outline-danger" href="#"><i class="fas fa-eye"></i></a>
+                                <button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}"><i class="fas fa-eye"></i></button>
                                 <button class="btn btn-outline-warning" type="button"><i class="fas fa-ban"></i></button>
                             </div>`
                         } else {
-                            return `<a class="btn btn-outline-danger" href="#"><i class="fas fa-eye"></i></a>`;
+                            return `<button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}"><i class="fas fa-eye"></i></button>`;
                         }
                     }
                 }
@@ -198,10 +245,10 @@ startSection('title'); ?>
             },
             createdRow: function (row, data, index) {
                 //pintar una celda
-                if (data.fecha_venc < data.fecha_actual) {
+                if (data.due_date < data.fecha_actual) {
                     $('td', row).eq(6).html('<span class="badge bg-danger">' + data.fecha_venc + '</span>');
                 }
-                if (data.fecha_venc < data.fecha_actual) {
+                if (data.due_date < data.fecha_actual) {
                     $('td', row).css({
                         'background-color': '#ffff52'
                     });
@@ -231,8 +278,8 @@ startSection('title'); ?>
                         let results = [];
                         results = $.map(data, function(item) {
                             return {
-                                label: `${item.name} ${item.lastname}`,
-                                id: item.id
+                                id: item.id,
+                                label: `${item.name} ${item.lastname}`
                             };
                         })
                         response(results);
@@ -248,27 +295,40 @@ startSection('title'); ?>
             }
         });
 
-        // $("#nombre_cliente").autocomplete({
-        //     minLength: 2,
-        //     source: function (request, response) {
-        //         $.ajax({
-        //             url: base_url + 'clientes/buscarCliente',
-        //             dataType: "json",
-        //             data: {
-        //                 plan: request.term
-        //             },
-        //             success: function (data) {
-        //                 response(data);
-        //             }
-        //         });
-        //     },
-        //     select: function (event, ui) {
-        //         document.getElementById('id_planCliente').value = ui.item.id;
-        //         document.getElementById('nombre_plan').value = ui.item.plan;
-        //         document.getElementById('precio').value = ui.item.precio;
-        //         document.getElementById('vencimiento').value = ui.item.vencimiento;
-        //     }
-        // });
+        $("#nombre_cliente").autocomplete({
+            minLength: 2,
+            source: function (request, response) {
+                $.ajax({
+                    url: `${api_admin_url}/customers/plan`,
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    data: {
+                        search: request.term
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        let results = [];
+                        results = $.map(data, function(item) {
+                            return {
+                                id: item.plan_details[0].id,
+                                label: `${item.name} ${item.lastname}`,
+                                plan_name: item.plan_details[0].plan.name,
+                                plan_price: item.plan_details[0].plan.price,
+                                due_date: item.plan_details[0].due_date
+                            };
+                        })
+                        response(results);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                document.getElementById('plan_detail_id').value = ui.item.id;
+                document.getElementById('nombre_plan').value = ui.item.plan_name;
+                document.getElementById('precio').value = ui.item.plan_price;
+                document.getElementById('vencimiento').value = ui.item.due_date;
+            }
+        });
 
         $("#buscar_planes").autocomplete({
             minLength: 2,
@@ -331,6 +391,99 @@ startSection('title'); ?>
                     success: function (response) {
                         alertas(response.message, 'success');
                         frm.reset();
+                        tablaPlanCliente.ajax.reload();
+                    }
+                });
+            }
+        }
+
+        $('#tablaPlanCliente').on('click', '.view-payments', function() {
+            var id = $(this).data('customer-id');
+            $('#paymentModal').modal('show');
+            // $('#paymentModal').find('[name=id]').val('');
+            $('#paymentModal').find('[name=id]').val(id);
+            tablaClientePago = $('#tablaClientePago').DataTable({
+                responsive: true,
+                processing: true,
+                serverSide: false,
+                ajax: {
+                    url: `${api_admin_url}/customers/payments/${id}`,
+                    dataSrc: '',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                },
+                columns: [
+                    { 'data': 'id' },
+                    { 'data': 'customer.name' },
+                    { 'data': 'customer.document_number' },
+                    { 'data': 'customer.name' },
+                    { 'data': 'plan.name' },
+                    { 'data': 'plan.price' },
+                    { 'data': 'due_date' },
+                    {
+                        data: 'id',
+                        render: function (data, type, full) {
+                            if (full.status == 1) {
+                                return `<span class="badge bg-success">Activo</span>`
+                            } else {
+                                return `<span class="badge bg-danger">Desabilitado</span>`;
+                            }
+                        }
+                    },
+                    {
+                        data: 'id',
+                        render: function (data, type, full) {
+                            if (full.status == 1) {
+                                return `<div>
+                                    <button class="btn btn-outline-primary" type="button"><i class="fas fa-dollar-sign"></i></button>
+                                    <button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}"><i class="fas fa-eye"></i></button>
+                                    <button class="btn btn-outline-warning" type="button"><i class="fas fa-ban"></i></button>
+                                </div>`
+                            } else {
+                                return `<button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}"><i class="fas fa-eye"></i></button>`;
+                            }
+                        }
+                    }
+                ],
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+                },
+                resonsieve: true,
+                bDestroy: true,
+                iDisplayLength: 10,
+                order: [
+                    [0, "desc"]
+                ]
+            });
+        });
+
+        function savePago(e) {
+            e.preventDefault();
+            const plan_detail_id = document.getElementById('plan_detail_id').value;
+            const cliente = document.getElementById('nombre_cliente').value;
+            const plan = document.getElementById('nombre_plan').value;
+            const precio = document.getElementById('precio').value;
+            const vencimiento = document.getElementById('vencimiento').value;
+            if (plan_detail_id == '' || cliente == '' || plan == '' || precio == '' || vencimiento == '') {
+                alertas('Todo los campos con * son requeridos', 'warning');
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: `${api_admin_url}/payments`,
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    data: {
+                        plan_detail_id,
+                        user_id
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        alertas(response.message, 'success');
+                        document.getElementById('plan_detail_id').value = '';
+                        document.getElementById('frmPago').reset();
+                        $('#modalPago').modal('hide');
                         tablaPlanCliente.ajax.reload();
                     }
                 });
