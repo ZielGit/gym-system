@@ -77,7 +77,7 @@ class CustomerController
 
     public function payments($id)
     {
-        $payments = Payment::where('customer_id', $id)->get();
+        $payments = Payment::with('plan:id,name,price')->where('customer_id', $id)->get();
         echo json_encode($payments);
     }
 }

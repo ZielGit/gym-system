@@ -157,34 +157,19 @@ startSection('title'); ?>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="id">
+                    <div style="padding-bottom: 8px;">
+                        <h5 class="d-inline">Cliente: </h5><h5 class="d-inline" id="customer"></h5>
+                    </div>
                     <table class="table table-striped table-hover display responsive nowrap" id="tablaClientePago" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Cliente</th>
                                 <th>Plan</th>
                                 <th>Precio</th>
                                 <th>Fecha de pago</th>
                                 <th>Hora</th>
-                                <th>Mes y Año</th>
                                 <th>Acciones</th>
                             </tr>
-                        <!-- </thead>
-                        <tbody>
-                            <?php foreach ($data['pagos'] as $row) { ?>
-                                <tr>
-                                    <td><?php echo $row['id']; ?></td>
-                                    <td><?php echo $row['nombre']; ?></td>
-                                    <td><?php echo $row['plan']; ?></td>
-                                    <td><?php echo $row['precio_plan']; ?></td>
-                                    <td><?php echo $row['fecha']; ?></td>
-                                    <td><?php echo $row['hora']; ?></td>
-                                    <td><?php echo date("M.Y", strtotime($row['fecha'])); ?></td>
-                                    <td><a class="btn btn-outline-danger" target="_blank" href="clientes/pdfPagos/<?php echo $row['id_cliente']; ?>"><i class="fas fa-file-pdf"></i></a></td>
-                                </tr>
-                            <?php } ?>
-                        </tbody> -->
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -231,11 +216,15 @@ startSection('title'); ?>
                         if (full.status == 1) {
                             return `<div>
                                 <button class="btn btn-outline-primary" type="button"><i class="fas fa-dollar-sign"></i></button>
-                                <button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}" data-customer="${full.customer.name} ${full.customer.lastname}">
+                                    <i class="fas fa-eye"></i>
+                                </button>
                                 <button class="btn btn-outline-warning" type="button"><i class="fas fa-ban"></i></button>
                             </div>`
                         } else {
-                            return `<button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}"><i class="fas fa-eye"></i></button>`;
+                            return `<button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}" data-customer="${full.customer.name} ${full.customer.lastname}">
+                                <i class="fas fa-eye"></i>
+                            </button>`;
                         }
                     }
                 }
@@ -399,9 +388,9 @@ startSection('title'); ?>
 
         $('#tablaPlanCliente').on('click', '.view-payments', function() {
             var id = $(this).data('customer-id');
+            var customer = $(this).data('customer');
+            $('#customer').text(customer);
             $('#paymentModal').modal('show');
-            // $('#paymentModal').find('[name=id]').val('');
-            $('#paymentModal').find('[name=id]').val(id);
             tablaClientePago = $('#tablaClientePago').DataTable({
                 responsive: true,
                 processing: true,
@@ -415,34 +404,14 @@ startSection('title'); ?>
                 },
                 columns: [
                     { 'data': 'id' },
-                    { 'data': 'customer.name' },
-                    { 'data': 'customer.document_number' },
-                    { 'data': 'customer.name' },
                     { 'data': 'plan.name' },
                     { 'data': 'plan.price' },
-                    { 'data': 'due_date' },
+                    { 'data': 'date' },
+                    { 'data': 'hour' },
                     {
                         data: 'id',
                         render: function (data, type, full) {
-                            if (full.status == 1) {
-                                return `<span class="badge bg-success">Activo</span>`
-                            } else {
-                                return `<span class="badge bg-danger">Desabilitado</span>`;
-                            }
-                        }
-                    },
-                    {
-                        data: 'id',
-                        render: function (data, type, full) {
-                            if (full.status == 1) {
-                                return `<div>
-                                    <button class="btn btn-outline-primary" type="button"><i class="fas fa-dollar-sign"></i></button>
-                                    <button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}"><i class="fas fa-eye"></i></button>
-                                    <button class="btn btn-outline-warning" type="button"><i class="fas fa-ban"></i></button>
-                                </div>`
-                            } else {
-                                return `<button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}"><i class="fas fa-eye"></i></button>`;
-                            }
+                            return `<a class="btn btn-outline-info" target="_blank" href="/admin/customers/pdf/payment/${data}"><i class="fas fa-file-pdf"></i></a>`;
                         }
                     }
                 ],
