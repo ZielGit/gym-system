@@ -83,13 +83,13 @@ startSection('title'); ?>
                 </div>
                 <div class="modal-body">
                     <div class="form-group mb-3">
+                        <label for="cliente" class="form-label">Cliente</label>
                         <input class="form-control" id="cliente" type="text" readonly>
                         <input type="hidden" id="id">
-                        <label for="cliente" class="form-label">Cliente</label>
                     </div>
                     <div class="form-group mb-3">
-                        <input class="form-control" id="plan" type="text" readonly>
                         <label for="plan" class="form-label">Plan</label>
+                        <input class="form-control" id="plan" type="text" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -204,9 +204,9 @@ startSection('title'); ?>
                     data: 'id',
                     render: function (data, type, full) {
                         if (full.status == 1) {
-                            return `<span class="badge bg-success">Activo</span>`
+                            return `<span class="badge bg-success">Habilitado</span>`
                         } else {
-                            return `<span class="badge bg-danger">Desabilitado</span>`;
+                            return `<span class="badge bg-danger">Deshabilitado</span>`;
                         }
                     }
                 },
@@ -215,11 +215,11 @@ startSection('title'); ?>
                     render: function (data, type, full) {
                         if (full.status == 1) {
                             return `<div>
-                                <button class="btn btn-outline-primary" type="button"><i class="fas fa-dollar-sign"></i></button>
+                                <button class="btn btn-outline-primary" type="button" onclick="pagoPlan(${data});"><i class="fas fa-dollar-sign"></i></button>
                                 <button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}" data-customer="${full.customer.name} ${full.customer.lastname}">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button class="btn btn-outline-warning" type="button"><i class="fas fa-ban"></i></button>
+                                <button class="btn btn-outline-warning" type="button" onclick="deshabilitar(${data});"><i class="fas fa-ban"></i></button>
                             </div>`
                         } else {
                             return `<button class="btn btn-outline-danger view-payments" type="button" data-customer-id="${full.customer.id}" data-customer="${full.customer.name} ${full.customer.lastname}">
@@ -233,11 +233,16 @@ startSection('title'); ?>
                 "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
             },
             createdRow: function (row, data, index) {
-                //pintar una celda
-                if (data.due_date < data.fecha_actual) {
-                    $('td', row).eq(6).html('<span class="badge bg-danger">' + data.fecha_venc + '</span>');
+                // Pintar una celda
+                let yourDate = new Date();
+                var nuevoAnio = yourDate.getFullYear();
+                var nuevoMes = ('0' + (yourDate.getMonth() + 1)).slice(-2);
+                var nuevoDia = ('0' + yourDate.getDate()).slice(-2);
+                var current_date = nuevoAnio + '-' + nuevoMes + '-' + nuevoDia;
+                if (data.due_date < current_date) {
+                    $('td', row).eq(6).html('<span class="badge bg-danger">' + data.due_date + '</span>');
                 }
-                if (data.due_date < data.fecha_actual) {
+                if (data.due_date < current_date) {
                     $('td', row).css({
                         'background-color': '#ffff52'
                     });
@@ -351,6 +356,32 @@ startSection('title'); ?>
             }
         });
 
+        $('#min').change(function (e) {
+            tablaPlanCliente.draw();
+        });
+
+        $('#max').change(function (e) {
+            tablaPlanCliente.draw();
+        });
+
+        if (document.getElementById('min') && document.getElementById('max')) {
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    let desde = $('#min').val();
+                    let hasta = $('#max').val();
+                    let fecha_registro = data[1].trim();
+                    if (desde == '' || hasta == '') {
+                        return true;
+                    }
+                    if (fecha_registro >= desde && fecha_registro <= hasta) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            );
+        }
+
         function register(e) {
             e.preventDefault();
             const customer_id = document.getElementById("customer_id").value;
@@ -426,6 +457,85 @@ startSection('title'); ?>
                 ]
             });
         });
+
+        function pagoPlan(id) {
+            $.ajax({
+                type: "get",
+                url: `${api_admin_url}/plans/customer/${id}`,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+                dataType: "json",
+                success: function (response) {
+                    document.getElementById('id').value = response.id;
+                    document.getElementById('cliente').value = response.customer.name;
+                    document.getElementById('plan').value = response.plan.name;
+                    $('#myModal').modal('show');
+                }
+            });
+        }
+
+        function generarPago() {
+            Swal.fire({
+                title: 'Procesar Pago?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si!',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var id = document.getElementById('id').value
+                    $.ajax({
+                        type: "post",
+                        url: `${api_admin_url}/payments/plan/${id}`,
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                        data: {
+                            user_id
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            alertas(response.message, 'success');
+                            $('#myModal').modal('hide');
+                            tablaPlanCliente.ajax.reload();
+                        }
+                    });
+                }
+            })
+        }
+
+        function deshabilitar(id) {
+            Swal.fire({
+                title: 'Esta seguro de deshabilitar?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si!',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "put",
+                        url: `${api_admin_url}/plans/customer/details/${id}`,
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                        data: {
+                            status: 0
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            alertas(response.message, 'success');
+                            tablaPlanCliente.ajax.reload();
+                        }
+                    });
+                }
+            })
+        }
 
         function savePago(e) {
             e.preventDefault();

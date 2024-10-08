@@ -48,6 +48,8 @@ return function ($router) {
     $router->addRoute('PUT', '/plans/status/{id:\d+}', [PlanController::class, 'updateStatus']);
     $router->addRoute('GET', '/plans/customer', [PlanController::class, 'indexPlanCustomer']);
     $router->addRoute('POST', '/plans/customer', [PlanController::class, 'storePlanCustomer']);
+    $router->addRoute('GET', '/plans/customer/{id:\d+}', [PlanController::class, 'showPlanCustomer']);
+    $router->addRoute('PUT', '/plans/customer/details/{id:\d+}', [PlanController::class, 'updateStatusPlanCustomer']);
 
     // Routines
     $router->addRoute('GET', '/routines', [RoutineController::class, 'index']);
@@ -66,4 +68,5 @@ return function ($router) {
     // Payments
     $router->addRoute('GET', '/payments', [PaymentController::class, 'index']);
     $router->addRoute('POST', '/payments', [PaymentController::class, 'store']);
+    $router->addRoute('POST', '/payments/plan/{id:\d+}', [PaymentController::class, 'storePayment']);
 };

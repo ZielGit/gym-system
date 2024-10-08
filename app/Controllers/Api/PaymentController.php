@@ -14,6 +14,7 @@ class PaymentController
     {
         $auth = new AuthMiddleware();
         $auth->handle();
+        date_default_timezone_set('America/Lima');
     }
 
     public function index()
@@ -49,5 +50,25 @@ class PaymentController
             'payment' => $payment
         ];
         echo json_encode($data);
+    }
+
+    public function storePayment($id)
+    {
+        $request = new Request;
+        $planDetails = PlanDetails::find($id);
+        $payment = Payment::create([
+            'plan_detail_id' => $planDetails->id,
+            'customer_id' => $planDetails->customer_id,
+            'plan_id' => $planDetails->plan_id,
+            'price' => $planDetails->plan->price,
+            'date' => date("Y-m-d"),
+            'hour' => date("Y-m-d H:i:s"),
+            'user_id' => $request->input('user_id'),
+        ]);
+        $response = [
+            'message' => 'Payment created successfully',
+            'payment' => $payment
+        ];
+        echo json_encode($response);
     }
 }

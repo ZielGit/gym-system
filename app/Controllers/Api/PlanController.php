@@ -13,6 +13,7 @@ class PlanController
     {
         $auth = new AuthMiddleware();
         $auth->handle();
+        date_default_timezone_set('America/Lima');
     }
 
     public function index()
@@ -150,6 +151,26 @@ class PlanController
         ]);
         $data = [
             'message' => 'Client plan created successfully',
+            'planDetails' => $planDetails
+        ];
+        echo json_encode($data);
+    }
+
+    public function showPlanCustomer($id)
+    {
+        $planDetails = PlanDetails::with(['customer', 'plan'])->find($id);
+        echo json_encode($planDetails);
+    }
+
+    public function updateStatusPlanCustomer($id)
+    {
+        $request = new Request;
+        $planDetails = PlanDetails::find($id);
+        $planDetails->update([
+            'status' => $request->input('status')
+        ]);
+        $data = [
+            'message' => 'Plan status updated successfully',
             'planDetails' => $planDetails
         ];
         echo json_encode($data);
