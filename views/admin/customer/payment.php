@@ -20,7 +20,7 @@ startSection('title'); ?>
                 <div class="col-md-4">
                     <div class="d-grid">
                         <label>Acción</label> <br>
-                        <button class="btn btn-outline-primary" type="button" name="pagos" onclick="mostrarTodo(event)">Limpiar</button>
+                        <button class="btn btn-outline-primary" type="button" name="pagos" onclick="limpiar(event)">Limpiar</button>
                     </div>
                 </div>
             </div>
@@ -75,16 +75,16 @@ startSection('title'); ?>
                     data: 'id',
                     render: function (data, type, full) {
                         if (full.status == 1) {
-                            return `<button type="button" class="btn btn-inverse-success btn-fw update-status" data-id="${data}" data-status="${full.status}">Entrada</button>`;
+                            return `<button type="button" class="btn btn-inverse-success btn-fw">Pagado</button>`;
                         } else {
-                            return `<button type="button" class="btn btn-inverse-danger btn-fw update-status" data-id="${data}" data-status="${full.status}" disabled>Salida</button>`;
+                            return `<button type="button" class="btn btn-inverse-danger btn-fw" disabled>Reenbolso</button>`;
                         }
                     }
                 },
                 {
                     data: 'id',
                     render: function (data) {
-                        return `<button class="btn btn-outline-primary" type="button" onclick="editModal(${data});"><i class="fas fa-edit"></i></button>`;
+                        return `<a class="btn btn-outline-info" target="_blank" href="/admin/customers/pdf/payment/${data}"><i class="fas fa-file-pdf"></i></a>`;
                     }
                 }
             ],
@@ -98,6 +98,38 @@ startSection('title'); ?>
                 [0, "desc"]
             ]
         });
+
+        $('#min').change(function () {
+            tablaPago.draw();
+        });
+
+        $('#max').change(function () {
+            tablaPago.draw();
+        });
+
+        if (document.getElementById('min') && document.getElementById('max')) {
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    let desde = $('#min').val();
+                    let hasta = $('#max').val();
+                    let fecha_registro = data[1].trim();
+                    if (desde == '' || hasta == '') {
+                        return true;
+                    }
+                    if (fecha_registro >= desde && fecha_registro <= hasta) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            );
+        }
+
+        function limpiar(e) {
+            document.getElementById('min').value = '';
+            document.getElementById('max').value = '';
+            tablaPago.draw();
+        }
     </script>
 <?php endSection(); ?>
 <?php
