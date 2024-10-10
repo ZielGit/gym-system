@@ -4,6 +4,7 @@ use App\Controllers\Api\AttendanceController;
 use App\Controllers\Api\AuthController;
 use App\Controllers\Api\CoachController;
 use App\Controllers\Api\CustomerController;
+use App\Controllers\Api\DashboardController;
 use App\Controllers\Api\HomeController;
 use App\Controllers\Api\PaymentController;
 use App\Controllers\Api\PlanController;
@@ -69,4 +70,9 @@ return function ($router) {
     $router->addRoute('GET', '/payments', [PaymentController::class, 'index']);
     $router->addRoute('POST', '/payments', [PaymentController::class, 'store']);
     $router->addRoute('POST', '/payments/plan/{id:\d+}', [PaymentController::class, 'storePayment']);
+
+    // Dashboard
+    $router->addRoute('GET', '/dashboard', [DashboardController::class, 'index']);
+    $router->addRoute('GET', '/dashboard/products-sold/{id:\d+}', [DashboardController::class, 'productsSold']);
+    $router->addRoute('GET', '/dashboard/sales/{id:\d+}', [DashboardController::class, 'sales']);
 };
