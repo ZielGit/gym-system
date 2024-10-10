@@ -92,6 +92,15 @@
                 }
             });
         });
+
+        function alertas(mensaje, icono) {
+            Snackbar.show({
+                text: mensaje,
+                pos: 'top-right',
+                backgroundColor: icono == 'success' ? '#079F00' : '#FF0303',
+                actionText: 'Cerrar'
+            });
+        }
     </script>
     <?php yieldContent('scripts'); ?>
 </body>
