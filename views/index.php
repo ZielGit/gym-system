@@ -62,8 +62,9 @@
 		</div>
 		<nav class="navbar navbar-expand-lg navigation" id="navbar">
 			<div class="container">
+				<input id="id" class="form-control" type="hidden" name="id" value="1">
 				<a class="navbar-brand" href="index.html">
-					<img src="/melody/images/logo.png" alt="" width="100" class="img-fluid">
+					<img src="" alt="" class="img-fluid img-logo">
 				</a>
 
 				<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"
@@ -76,7 +77,6 @@
 						<li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">About</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Services</a></li>
-
 						<li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li>
 					</ul>
 				</div>
@@ -206,7 +206,7 @@
 				<div class="col-lg-4 mr-auto col-sm-6">
 					<div class="widget mb-5 mb-lg-0">
 						<div class="logo mb-4">
-							<img src="/melody/images/logo.png" alt="" class="img-fluid" width="100">
+							<img src="" alt="" class="img-fluid img-logo">
 						</div>
 						<p>Tempora dolorem voluptatum nam vero assumenda voluptate, facilis ad eos obcaecati tenetur veritatis eveniet distinctio possimus.</p>
 
@@ -287,13 +287,26 @@
     <script src="/novena/js/script.js"></script>
 	<script>
 		const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
+		const id = document.getElementById("id").value;
+
+		$.ajax({
+            type: "get",
+            url: `${api_admin_url}/home/logo/${id}`,
+            dataType: "json",
+            success: function (response) {
+                if (response.logo_path != null) {
+                    $('.img-logo').attr("src", response.logo_path);
+                } else {
+                    $('.img-logo').attr("src", '/novena/images/logo.png');
+                }
+            }
+        });
 
 		$.ajax({
 			type: 'get',
 			url: `${api_admin_url}/home`,
 			dataType: "json",
 			success: function(response) {
-				console.log('response', response);
 				$('#customer-counter').attr('data-count', response.customers);
 				$('#coach-counter').attr('data-count', response.coaches);
 			}

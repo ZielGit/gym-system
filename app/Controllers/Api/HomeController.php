@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Models\Coach;
+use App\Models\Company;
 use App\Models\Customer;
 
 class HomeController
@@ -16,5 +17,11 @@ class HomeController
             'coaches' => $coaches
         ];
         echo json_encode($data);
+    }
+
+    public function logo($id)
+    {
+        $company = Company::find($id);
+        echo json_encode($company);
     }
 }

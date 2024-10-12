@@ -14,6 +14,7 @@ use App\Controllers\Api\UserController;
 
 return function ($router) {
     $router->addRoute('GET', '/home', [HomeController::class, 'index']);
+    $router->addRoute('GET', '/home/logo/{id:\d+}', [HomeController::class, 'logo']);
 
     // Auth
     $router->addRoute('POST', '/login', [AuthController::class, 'login']);
