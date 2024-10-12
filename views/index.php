@@ -85,7 +85,7 @@
 	</header>
 
 	<!-- Slider Start -->
-	<section class="banner" style="background-image: url('/melody/images/principal.jpg');">
+	<section class="banner" style="background-image: url('/images/principal.jpg');">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12 col-xl-7">
