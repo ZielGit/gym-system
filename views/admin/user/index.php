@@ -103,6 +103,15 @@ startSection('title'); ?>
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><i class="fas fa-camera"></i> Foto de Perfil (Opcional)</label>
+                                    <input id="profile_photo" class="form-control" type="file" name="profile_photo">
+                                    <img class="img-thumbnail mt-2 current_profile_photo" src="" alt="Profile Photo">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-outline-primary" type="submit" id="btnAccion">Registrar</button>
@@ -205,6 +214,11 @@ startSection('title'); ?>
                     document.getElementById("maternal_surname").value = response.maternal_surname;
                     document.getElementById("email").value = response.email;
                     document.getElementById("phone").value = response.phone;
+                    if (response.profile_photo_url != null) {
+                        $('.current_profile_photo').attr("src", response.profile_photo_url);
+                    } else {
+                        $('.current_profile_photo').attr("src", '/images/user.png');
+                    }
                     $('#userModal').modal('show');
                 }
             });
@@ -221,17 +235,27 @@ startSection('title'); ?>
             const email = document.getElementById("email").value;
             const phone = document.getElementById("phone").value;
             const password = document.getElementById("password").value;
+
+            var formData = new FormData();
+            formData.append('document_type', document_type);
+            formData.append('document_number', document_number);
+            formData.append('name', name);
+            formData.append('paternal_surname', paternal_surname);
+            formData.append('maternal_surname', maternal_surname);
+            formData.append('email', email);
+            formData.append('phone', phone);
+            formData.append('password', password);
+            formData.append('profile_photo', $('#profile_photo')[0].files[0]);
             if (document_number == '' || name == '' || paternal_surname == '' || maternal_surname == '') {
                 alertas('Todo los campos son obligatorios', 'warning');
             } else {
                 const frm = document.getElementById("frmUser");
                 let type, url;
-                console.log('id: ', id);
                 if (id == '') {
                     type = 'post';
                     url = `${api_admin_url}/users`;
                 } else {
-                    type = 'put';
+                    type = 'post';
                     url = `${api_admin_url}/users/${id}`;
                 }
                 $.ajax({
@@ -240,19 +264,11 @@ startSection('title'); ?>
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
-                    data: {
-                        document_type,
-                        document_number,
-                        name,
-                        paternal_surname,
-                        maternal_surname,
-                        email,
-                        phone,
-                        password
-                    },
+                    data: formData,
                     dataType: "json",
+                    processData: false,
+                    contentType: false,
                     success: function(response) {
-                        console.log('response', response);
                         alertas(response.message, 'success');
                         tablaUsuarios.ajax.reload();
                         frm.reset();
