@@ -14,7 +14,7 @@
     <link href="/melody/css/jquery-ui.min.css" rel="stylesheet" />
     <?php yieldContent('styles'); ?>
     <!-- endinject -->
-    <link rel="shortcut icon" href="/melody/images/favicon-32x32.png" />
+    <link rel="shortcut icon" href="/melody/images/favicon.png" />
 </head>
 <body>
     <div class="container-scroller">

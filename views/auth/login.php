@@ -15,7 +15,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="/melody/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="/melody/images/favicon-32x32.png" />
+  <link rel="shortcut icon" href="/melody/images/favicon.png" />
 </head>
 
 <body>
