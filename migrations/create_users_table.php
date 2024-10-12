@@ -12,6 +12,7 @@ Capsule::schema()->create('users', function ($table) {
     $table->string('email')->unique();
     $table->string('phone')->nullable()->unique();
     $table->string('password');
+    $table->text('profile_photo_url')->nullable();
     $table->tinyInteger('status')->default(1)->comment('Disable : 0, Enable : 1');
     $table->timestamps();
 });

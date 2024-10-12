@@ -23,7 +23,7 @@ class UserController
     public function store()
     {
         $request = new Request;
-        $user = User::create([
+        $data = [
             'document_type'=> $request->input('document_type'),
             'document_number'=> $request->input('document_number'),
             'name'=> $request->input('name'),
@@ -32,12 +32,33 @@ class UserController
             'email'=> $request->input('email'),
             'phone'=> $request->input('phone'),
             'password'=> password_hash($request->input('password'), PASSWORD_BCRYPT),
-        ]);
-        $data = [
+        ];
+        if ($request->hasFile('profile_photo')) {
+            $image = $request->file('profile_photo');
+            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/public/files/users/image/';
+            // Verifica si la carpeta existe, si no, la crea
+            if (!file_exists($destination_folder)) {
+                mkdir($destination_folder, 0777, true);
+            }
+
+            $allowedTypes = [
+                'image/jpeg' => 'jpg',
+                'image/png' => 'png'
+            ];
+
+            if ($image['type'] == "image/jpeg" || $image['type'] == 'image/png') {
+                $name_image = 'user-' . date('YmdHis') . '.' . $allowedTypes[$image['type']];
+                move_uploaded_file($image['tmp_name'], $destination_folder . $name_image);
+                $url_image_server = $_ENV['APP_URL'] . '/files/users/image/' . $name_image;
+                $data['profile_photo_url'] = $url_image_server;
+            }
+        }
+        $user = User::create($data);
+        $response = [
             'message' => 'User created successfully',
             'user' => $user
         ];
-        echo json_encode($data);
+        echo json_encode($response);
     }
 
     public function show($id)
@@ -61,6 +82,26 @@ class UserController
         ];
         if ($request->input('password')) {
             $data['password'] = password_hash($request->input('password'), PASSWORD_BCRYPT);
+        }
+        if ($request->hasFile('profile_photo')) {
+            $image = $request->file('profile_photo');
+            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/public/files/users/image/';
+            // Verifica si la carpeta existe, si no, la crea
+            if (!file_exists($destination_folder)) {
+                mkdir($destination_folder, 0777, true);
+            }
+
+            $allowedTypes = [
+                'image/jpeg' => 'jpg',
+                'image/png' => 'png'
+            ];
+
+            if ($image['type'] == "image/jpeg" || $image['type'] == 'image/png') {
+                $name_image = 'user-' . date('YmdHis') . '.' . $allowedTypes[$image['type']];
+                move_uploaded_file($image['tmp_name'], $destination_folder . $name_image);
+                $url_image_server = $_ENV['APP_URL'] . '/files/users/image/' . $name_image;
+                $data['profile_photo_url'] = $url_image_server;
+            }
         }
         $user->update($data);
         $response = [

@@ -40,7 +40,7 @@ return function ($router) {
     $router->addRoute('GET', '/users', [UserController::class, 'index']);
     $router->addRoute('POST', '/users', [UserController::class, 'store']);
     $router->addRoute('GET', '/users/{id:\d+}', [UserController::class, 'show']);
-    $router->addRoute('PUT', '/users/{id:\d+}', [UserController::class, 'update']);
+    $router->addRoute('POST', '/users/{id:\d+}', [UserController::class, 'update']);
     $router->addRoute('PUT', '/users/status/{id:\d+}', [UserController::class, 'updateStatus']);
     $router->addRoute('PUT', '/users/password/{id:\d+}', [UserController::class, 'changePassword']);
 
