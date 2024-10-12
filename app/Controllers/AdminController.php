@@ -34,6 +34,11 @@ class AdminController extends Controller
         return $this->view('admin.user.index');
     }
 
+    public function userProfile()
+    {
+        return $this->view('admin.user.profile');
+    }
+
     public function plan()
     {
         return $this->view('admin.plan.index');

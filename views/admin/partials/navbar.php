@@ -13,7 +13,7 @@
                     <img src="/melody/images/user.png" alt="profile" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item" href="usuarios/perfil">
+                    <a class="dropdown-item" href="/admin/users/profile">
                         <i class="fas fa-cog text-primary"></i>
                         Settings
                     </a>

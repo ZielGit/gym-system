@@ -17,6 +17,7 @@ return function ($router) {
     $router->addRoute('GET', '/admin/customers/plan', [AdminController::class, 'customerPlan']);
     $router->addRoute('GET', '/admin/customers/payment', [AdminController::class, 'customerPayment']);
     $router->addRoute('GET', '/admin/users', [AdminController::class, 'user']);
+    $router->addRoute('GET', '/admin/users/profile', [AdminController::class, 'userProfile']);
     $router->addRoute('GET', '/admin/plans', [AdminController::class, 'plan']);
     $router->addRoute('GET', '/admin/routines', [AdminController::class, 'routine']);
     $router->addRoute('GET', '/admin/attendances', [AdminController::class, 'attendance']);
