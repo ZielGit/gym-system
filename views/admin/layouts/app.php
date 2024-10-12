@@ -73,10 +73,17 @@
 
         var user = JSON.parse(localStorage.getItem('user'));
         const user_id = user.id;
-        const user_name = user.name;
-        const user_email = user.email;
+        var user_name = user.name;
+        var user_email = user.email;
+        var user_profile_photo_url = user.profile_photo_url;
+
         $('.user-name').html(user_name);
         $('.user-email').html(user_email);
+        if (user_profile_photo_url != null) {
+            $('.user-profile-photo').attr("src", user_profile_photo_url);
+        } else {
+            $('.user-profile-photo').attr("src", '/images/user.png');
+        }
 
         $('#logout').click(function(e) {
             e.preventDefault();

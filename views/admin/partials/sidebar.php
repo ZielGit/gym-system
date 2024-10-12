@@ -3,7 +3,7 @@
         <li class="nav-item nav-profile">
             <div class="nav-link">
                 <div class="profile-image">
-                    <img src="/melody/images/user.png" alt="image" />
+                    <img class="user-profile-photo" src="" alt="image" />
                 </div>
                 <div class="profile-name">
                     <p class="name user-name"></p>
