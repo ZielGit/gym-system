@@ -62,9 +62,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/admin/administracion">
-                <i class="fa fa-cog menu-icon"></i>
-                <span class="menu-title">Contactos</span>
+            <a class="nav-link" href="/admin/companies">
+                <i class="fas fa-building menu-icon"></i>
+                <span class="menu-title">Empresa</span>
             </a>
         </li>
     </ul>

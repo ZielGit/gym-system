@@ -20,4 +20,5 @@ return function ($router) {
     $router->addRoute('GET', '/admin/plans', [AdminController::class, 'plan']);
     $router->addRoute('GET', '/admin/routines', [AdminController::class, 'routine']);
     $router->addRoute('GET', '/admin/attendances', [AdminController::class, 'attendance']);
+    $router->addRoute('GET', '/admin/companies', [AdminController::class, 'company']);
 };
