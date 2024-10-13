@@ -84,7 +84,7 @@ startSection('title'); ?>
                 {
                     data: 'id',
                     render: function (data) {
-                        return `<a class="btn btn-outline-info" target="_blank" href="/admin/customers/pdf/payment/${data}"><i class="fas fa-file-pdf"></i></a>`;
+                        return `<button type="button" class="btn btn-outline-info invoice-pdf" data-id="${data}"><i class="fas fa-file-pdf"></i></button>`;
                     }
                 }
             ],
@@ -130,6 +130,33 @@ startSection('title'); ?>
             document.getElementById('max').value = '';
             tablaPago.draw();
         }
+
+        $('#tablaPago').on('click', '.invoice-pdf', function () {
+            var id =  $(this).data('id');
+            $.ajax({
+                type: "get",
+                url: `${api_admin_url}/customers/payment/${id}/pdf`,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (response) {
+                    // Crear un blob a partir de la respuesta
+                    var blob = new Blob([response], { type: 'application/pdf' });
+
+                    // Crear una URL para el blob
+                    var blobUrl = URL.createObjectURL(blob);
+
+                    // Abrir el PDF en una nueva pestaña
+                    window.open(blobUrl, '_blank');
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error al generar el PDF:', error);
+                }
+            });
+        });
     </script>
 <?php endSection(); ?>
 <?php
