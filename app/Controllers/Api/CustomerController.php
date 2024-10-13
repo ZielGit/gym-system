@@ -3,8 +3,10 @@
 namespace App\Controllers\Api;
 
 use App\Middleware\AuthMiddleware;
+use App\Models\Company;
 use App\Models\Customer;
 use App\Models\Payment;
+use Config\Pdf;
 use Core\Request;
 
 class CustomerController
@@ -79,5 +81,18 @@ class CustomerController
     {
         $payments = Payment::with('plan:id,name,price')->where('customer_id', $id)->get();
         echo json_encode($payments);
+    }
+
+    public function paymentPdf($id)
+    {
+        $payments = Payment::find($id);
+        $company = Company::find(1);
+        $data = [
+            'payment' => $payments->load('customer', 'plan'),
+            'company' => $company
+        ];
+        $pdf = new Pdf();
+        $html = $pdf->loadView('admin.pdf.invoice', ['data' => $data]);
+        $pdf->generate($html, 'invoice-' . $payments->id . '.pdf');
     }
 }

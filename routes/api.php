@@ -28,6 +28,7 @@ return function ($router) {
     $router->addRoute('PUT', '/customers/status/{id:\d+}', [CustomerController::class, 'updateStatus']);
     $router->addRoute('GET', '/customers/plan', [CustomerController::class, 'plan']);
     $router->addRoute('GET', '/customers/payments/{id:\d+}', [CustomerController::class, 'payments']);
+    $router->addRoute('GET', '/customers/payment/{id:\d+}/pdf', [CustomerController::class, 'paymentPdf']);
 
     // Coaches
     $router->addRoute('GET', '/coaches', [CoachController::class, 'index']);
