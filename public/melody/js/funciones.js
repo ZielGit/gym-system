@@ -1,524 +1,524 @@
 let tblUsuarios, tblClientes, editor, myModal, tbl, myChart,
     tblPlanes, tblPlanCli, tblRutinas, tblPagos, tblEnt, tblAsistencias;
 document.addEventListener("DOMContentLoaded", function () {
-    if (document.getElementById('ProductosVendidos')) {
-        actualizarGrafico();
-        ventasDia();
-    }
-    $("#select_cliente").autocomplete({
-        minLength: 2,
-        source: function (request, response) {
-            $.ajax({
-                url: base_url + 'clientes/buscarCliente/',
-                dataType: "json",
-                data: {
-                    cli: request.term
-                },
-                success: function (data) {
-                    response(data);
-                }
-            });
-        },
-        select: function (event, ui) {
-            document.getElementById('id_cli').value = ui.item.id;
-            document.getElementById('select_cliente').value = ui.item.nombre;
-            if (document.getElementById('select_plan')) {
-                buscarPlanCli(ui.item.id);
-            }
-        }
-    });
-    $("#select_entrenador").autocomplete({
-        minLength: 2,
-        source: function (request, response) {
-            $.ajax({
-                url: base_url + 'asistencias/buscarEntrenador/',
-                dataType: "json",
-                data: {
-                    ent: request.term
-                },
-                success: function (data) {
-                    response(data);
-                }
-            });
-        },
-        select: function (event, ui) {
-            document.getElementById('id_entrenador').value = ui.item.id;
-            document.getElementById('select_entrenador').value = ui.item.nombre;
-        }
-    });
-    $("#select_rutina").autocomplete({
-        minLength: 2,
-        source: function (request, response) {
-            $.ajax({
-                url: base_url + 'asistencias/buscarRutina',
-                dataType: "json",
-                data: {
-                    rut: request.term
-                },
-                success: function (data) {
-                    response(data);
-                }
-            });
-        },
-        select: function (event, ui) {
-            document.getElementById('id_rutina').value = ui.item.id;
-            document.getElementById('select_rutina').value = ui.item.nombre;
-        }
-    });
-    $("#nombre_cliente").autocomplete({
-        minLength: 2,
-        source: function (request, response) {
-            $.ajax({
-                url: base_url + 'clientes/buscarCliente',
-                dataType: "json",
-                data: {
-                    plan: request.term
-                },
-                success: function (data) {
-                    response(data);
-                }
-            });
-        },
-        select: function (event, ui) {
-            document.getElementById('id_planCliente').value = ui.item.id;
-            document.getElementById('nombre_plan').value = ui.item.plan;
-            document.getElementById('precio').value = ui.item.precio;
-            document.getElementById('vencimiento').value = ui.item.vencimiento;
-        }
-    });
-    $("#buscar_planes").autocomplete({
-        minLength: 2,
-        source: function (request, response) {
-            $.ajax({
-                url: base_url + 'clientes/buscar_planes/',
-                dataType: "json",
-                data: {
-                    q: request.term
-                },
-                success: function (data) {
-                    response(data);
-                }
-            });
-        },
-        select: function (event, ui) {
-            document.getElementById('id_plan').value = ui.item.id;
-            document.getElementById('buscar_planes').value = ui.item.plan;
-            document.getElementById('precio_plan').value = ui.item.precio_plan;
-        }
-    });
-    const dom = "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
-        "<'row'<'col-sm-12'tr>>" +
-        "<'row'<'col-sm-5'i><'col-sm-7'p>>";
-    tblUsuarios = $('#tblUsuarios').DataTable({
-        responsive: true,
-        processing: true,
-        serverSide: false,
-        ajax: {
-            url: base_url + "usuarios/listar",
-            dataSrc: ''
-        },
-        columns: [
-            { 'data': 'id' },
-            { 'data': 'usuario' },
-            { 'data': 'nombre' },
-            { 'data': 'correo' },
-            { 'data': 'rol' },
-            { 'data': 'estado' },
-            { "data": "editar" },
-            { "data": "eliminar" }
-        ],
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-        },
-        dom,
-        resonsieve: true,
-        bDestroy: true,
-        iDisplayLength: 10,
-        order: [
-            [0, "desc"]
-        ]
-    });//Fin de la tabla usuarios
-    tblClientes = $('#tblClientes').DataTable({
-        responsive: true,
-        processing: true,
-        serverSide: false,
-        ajax: {
-            url: base_url + "clientes/listar",
-            dataSrc: ''
-        },
-        columns: [{ 'data': 'id' },
-        { 'data': 'dni' },
-        { 'data': 'nombre' },
-        { 'data': 'telefono' },
-        { 'data': 'direccion' },
-        { 'data': 'estado' },
-        { 'data': 'editar' },
-        { 'data': 'eliminar' }
-        ],
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-        },
-        dom,
+    // if (document.getElementById('ProductosVendidos')) {
+    //     actualizarGrafico();
+    //     ventasDia();
+    // }
+    // $("#select_cliente").autocomplete({
+    //     minLength: 2,
+    //     source: function (request, response) {
+    //         $.ajax({
+    //             url: base_url + 'clientes/buscarCliente/',
+    //             dataType: "json",
+    //             data: {
+    //                 cli: request.term
+    //             },
+    //             success: function (data) {
+    //                 response(data);
+    //             }
+    //         });
+    //     },
+    //     select: function (event, ui) {
+    //         document.getElementById('id_cli').value = ui.item.id;
+    //         document.getElementById('select_cliente').value = ui.item.nombre;
+    //         if (document.getElementById('select_plan')) {
+    //             buscarPlanCli(ui.item.id);
+    //         }
+    //     }
+    // });
+    // $("#select_entrenador").autocomplete({
+    //     minLength: 2,
+    //     source: function (request, response) {
+    //         $.ajax({
+    //             url: base_url + 'asistencias/buscarEntrenador/',
+    //             dataType: "json",
+    //             data: {
+    //                 ent: request.term
+    //             },
+    //             success: function (data) {
+    //                 response(data);
+    //             }
+    //         });
+    //     },
+    //     select: function (event, ui) {
+    //         document.getElementById('id_entrenador').value = ui.item.id;
+    //         document.getElementById('select_entrenador').value = ui.item.nombre;
+    //     }
+    // });
+    // $("#select_rutina").autocomplete({
+    //     minLength: 2,
+    //     source: function (request, response) {
+    //         $.ajax({
+    //             url: base_url + 'asistencias/buscarRutina',
+    //             dataType: "json",
+    //             data: {
+    //                 rut: request.term
+    //             },
+    //             success: function (data) {
+    //                 response(data);
+    //             }
+    //         });
+    //     },
+    //     select: function (event, ui) {
+    //         document.getElementById('id_rutina').value = ui.item.id;
+    //         document.getElementById('select_rutina').value = ui.item.nombre;
+    //     }
+    // });
+    // $("#nombre_cliente").autocomplete({
+    //     minLength: 2,
+    //     source: function (request, response) {
+    //         $.ajax({
+    //             url: base_url + 'clientes/buscarCliente',
+    //             dataType: "json",
+    //             data: {
+    //                 plan: request.term
+    //             },
+    //             success: function (data) {
+    //                 response(data);
+    //             }
+    //         });
+    //     },
+    //     select: function (event, ui) {
+    //         document.getElementById('id_planCliente').value = ui.item.id;
+    //         document.getElementById('nombre_plan').value = ui.item.plan;
+    //         document.getElementById('precio').value = ui.item.precio;
+    //         document.getElementById('vencimiento').value = ui.item.vencimiento;
+    //     }
+    // });
+    // $("#buscar_planes").autocomplete({
+    //     minLength: 2,
+    //     source: function (request, response) {
+    //         $.ajax({
+    //             url: base_url + 'clientes/buscar_planes/',
+    //             dataType: "json",
+    //             data: {
+    //                 q: request.term
+    //             },
+    //             success: function (data) {
+    //                 response(data);
+    //             }
+    //         });
+    //     },
+    //     select: function (event, ui) {
+    //         document.getElementById('id_plan').value = ui.item.id;
+    //         document.getElementById('buscar_planes').value = ui.item.plan;
+    //         document.getElementById('precio_plan').value = ui.item.precio_plan;
+    //     }
+    // });
+    // const dom = "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+    //     "<'row'<'col-sm-12'tr>>" +
+    //     "<'row'<'col-sm-5'i><'col-sm-7'p>>";
+    // tblUsuarios = $('#tblUsuarios').DataTable({
+    //     responsive: true,
+    //     processing: true,
+    //     serverSide: false,
+    //     ajax: {
+    //         url: base_url + "usuarios/listar",
+    //         dataSrc: ''
+    //     },
+    //     columns: [
+    //         { 'data': 'id' },
+    //         { 'data': 'usuario' },
+    //         { 'data': 'nombre' },
+    //         { 'data': 'correo' },
+    //         { 'data': 'rol' },
+    //         { 'data': 'estado' },
+    //         { "data": "editar" },
+    //         { "data": "eliminar" }
+    //     ],
+    //     language: {
+    //         "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+    //     },
+    //     dom,
+    //     resonsieve: true,
+    //     bDestroy: true,
+    //     iDisplayLength: 10,
+    //     order: [
+    //         [0, "desc"]
+    //     ]
+    // });//Fin de la tabla usuarios
+    // tblClientes = $('#tblClientes').DataTable({
+    //     responsive: true,
+    //     processing: true,
+    //     serverSide: false,
+    //     ajax: {
+    //         url: base_url + "clientes/listar",
+    //         dataSrc: ''
+    //     },
+    //     columns: [{ 'data': 'id' },
+    //     { 'data': 'dni' },
+    //     { 'data': 'nombre' },
+    //     { 'data': 'telefono' },
+    //     { 'data': 'direccion' },
+    //     { 'data': 'estado' },
+    //     { 'data': 'editar' },
+    //     { 'data': 'eliminar' }
+    //     ],
+    //     language: {
+    //         "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+    //     },
+    //     dom,
 
-        resonsieve: true,
-        bDestroy: true,
-        iDisplayLength: 10,
-        order: [
-            [0, "desc"]
-        ]
-    });//Fin de la tabla clientes
-    tblPlanes = $('#tblPlanes').DataTable({
-        responsive: true,
-        processing: true,
-        serverSide: false,
-        ajax: {
-            url: base_url + "planes/listar",
-            dataSrc: ''
-        },
-        columns: [{
-            'data': 'id'
-        },
-        {
-            'data': 'imagen'
-        },
-        {
-            'data': 'plan'
-        },
-        {
-            'data': 'descripcion'
-        },
-        {
-            'data': 'precio_plan'
-        },
-        {
-            'data': 'condicion'
-        },
-        {
-            'data': 'estado'
-        },
-        {
-            'data': 'editar'
-        },
-        {
-            'data': 'eliminar'
-        }
-        ],
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-        },
-        dom,
+    //     resonsieve: true,
+    //     bDestroy: true,
+    //     iDisplayLength: 10,
+    //     order: [
+    //         [0, "desc"]
+    //     ]
+    // });//Fin de la tabla clientes
+    // tblPlanes = $('#tblPlanes').DataTable({
+    //     responsive: true,
+    //     processing: true,
+    //     serverSide: false,
+    //     ajax: {
+    //         url: base_url + "planes/listar",
+    //         dataSrc: ''
+    //     },
+    //     columns: [{
+    //         'data': 'id'
+    //     },
+    //     {
+    //         'data': 'imagen'
+    //     },
+    //     {
+    //         'data': 'plan'
+    //     },
+    //     {
+    //         'data': 'descripcion'
+    //     },
+    //     {
+    //         'data': 'precio_plan'
+    //     },
+    //     {
+    //         'data': 'condicion'
+    //     },
+    //     {
+    //         'data': 'estado'
+    //     },
+    //     {
+    //         'data': 'editar'
+    //     },
+    //     {
+    //         'data': 'eliminar'
+    //     }
+    //     ],
+    //     language: {
+    //         "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+    //     },
+    //     dom,
 
-        resonsieve: true,
-        bDestroy: true,
-        iDisplayLength: 10,
-        order: [
-            [0, "desc"]
-        ]
-    }); //Fin de la tabla Planes
-    tblPago = $('#tblPago').DataTable({
-        responsive: true,
-        processing: true,
-        serverSide: false,
-        ajax: {
-            url: base_url + 'clientes/listar_pagos',
-            dataSrc: ''
-        },
-        columns: [{
-            'data': 'id'
-        },
-        {
-            'data': 'fecha'
-        },
-        {
-            'data': 'nombre'
-        },
-        {
-            'data': 'plan'
-        },
-        {
-            'data': 'precio_plan'
-        },
-        {
-            'data': 'estado'
-        },
-        {
-            'data': 'ver'
-        }
-        ],
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-        },
-        dom,
+    //     resonsieve: true,
+    //     bDestroy: true,
+    //     iDisplayLength: 10,
+    //     order: [
+    //         [0, "desc"]
+    //     ]
+    // }); //Fin de la tabla Planes
+    // tblPago = $('#tblPago').DataTable({
+    //     responsive: true,
+    //     processing: true,
+    //     serverSide: false,
+    //     ajax: {
+    //         url: base_url + 'clientes/listar_pagos',
+    //         dataSrc: ''
+    //     },
+    //     columns: [{
+    //         'data': 'id'
+    //     },
+    //     {
+    //         'data': 'fecha'
+    //     },
+    //     {
+    //         'data': 'nombre'
+    //     },
+    //     {
+    //         'data': 'plan'
+    //     },
+    //     {
+    //         'data': 'precio_plan'
+    //     },
+    //     {
+    //         'data': 'estado'
+    //     },
+    //     {
+    //         'data': 'ver'
+    //     }
+    //     ],
+    //     language: {
+    //         "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+    //     },
+    //     dom,
 
-        resonsieve: true,
-        bDestroy: true,
-        iDisplayLength: 10,
-        order: [
-            [0, "desc"]
-        ]
-    }); //Fin de la tabla Pagos
-    tblPlanCli = $('#tblPlanCli').DataTable({
-        responsive: true,
-        processing: true,
-        serverSide: false,
-        ajax: {
-            url: base_url + "clientes/listar_plan_clientes",
-            dataSrc: ''
-        },
-        columns: [
-            { 'data': 'id' },
-            { 'data': 'fecha' },
-            { 'data': 'dni' },
-            { 'data': 'nombre' },
-            { 'data': 'plan' },
-            { 'data': 'precio_plan' },
-            { 'data': 'fecha_venc' },
-            { 'data': 'fecha_limite' },
-            { 'data': 'estado' },
-            { 'data': 'accion' }
-        ],
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-        },
-        dom,
+    //     resonsieve: true,
+    //     bDestroy: true,
+    //     iDisplayLength: 10,
+    //     order: [
+    //         [0, "desc"]
+    //     ]
+    // }); //Fin de la tabla Pagos
+    // tblPlanCli = $('#tblPlanCli').DataTable({
+    //     responsive: true,
+    //     processing: true,
+    //     serverSide: false,
+    //     ajax: {
+    //         url: base_url + "clientes/listar_plan_clientes",
+    //         dataSrc: ''
+    //     },
+    //     columns: [
+    //         { 'data': 'id' },
+    //         { 'data': 'fecha' },
+    //         { 'data': 'dni' },
+    //         { 'data': 'nombre' },
+    //         { 'data': 'plan' },
+    //         { 'data': 'precio_plan' },
+    //         { 'data': 'fecha_venc' },
+    //         { 'data': 'fecha_limite' },
+    //         { 'data': 'estado' },
+    //         { 'data': 'accion' }
+    //     ],
+    //     language: {
+    //         "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+    //     },
+    //     dom,
 
-        createdRow: function (row, data, index) {
-            //pintar una celda
-            if (data.fecha_venc < data.fecha_actual) {
-                $('td', row).eq(6).html('<span class="badge bg-danger">' + data.fecha_venc + '</span>');
-            }
-            if (data.fecha_venc < data.fecha_actual) {
-                $('td', row).css({
-                    'background-color': '#ffff52'
-                });
-            }
-        },
-        resonsieve: true,
-        bDestroy: true,
-        iDisplayLength: 10,
-        order: [
-            [0, "desc"]
-        ]
-    }); //Fin de la tabla planes cliente
-    tblRutinas = $('#tblRutinas').DataTable({
-        responsive: true,
-        processing: true,
-        serverSide: false,
-        ajax: {
-            url: base_url + "rutinas/listar",
-            dataSrc: ''
-        },
-        columns: [{
-            'data': 'id'
-        },
-        {
-            'data': 'dia'
-        },
-        {
-            'data': 'descripcion'
-        },
-        {
-            'data': 'estado'
-        },
-        {
-            'data': 'editar'
-        },
-        {
-            'data': 'eliminar'
-        }
-        ],
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-        },
-        dom,
+    //     createdRow: function (row, data, index) {
+    //         //pintar una celda
+    //         if (data.fecha_venc < data.fecha_actual) {
+    //             $('td', row).eq(6).html('<span class="badge bg-danger">' + data.fecha_venc + '</span>');
+    //         }
+    //         if (data.fecha_venc < data.fecha_actual) {
+    //             $('td', row).css({
+    //                 'background-color': '#ffff52'
+    //             });
+    //         }
+    //     },
+    //     resonsieve: true,
+    //     bDestroy: true,
+    //     iDisplayLength: 10,
+    //     order: [
+    //         [0, "desc"]
+    //     ]
+    // }); //Fin de la tabla planes cliente
+    // tblRutinas = $('#tblRutinas').DataTable({
+    //     responsive: true,
+    //     processing: true,
+    //     serverSide: false,
+    //     ajax: {
+    //         url: base_url + "rutinas/listar",
+    //         dataSrc: ''
+    //     },
+    //     columns: [{
+    //         'data': 'id'
+    //     },
+    //     {
+    //         'data': 'dia'
+    //     },
+    //     {
+    //         'data': 'descripcion'
+    //     },
+    //     {
+    //         'data': 'estado'
+    //     },
+    //     {
+    //         'data': 'editar'
+    //     },
+    //     {
+    //         'data': 'eliminar'
+    //     }
+    //     ],
+    //     language: {
+    //         "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+    //     },
+    //     dom,
 
-        resonsieve: true,
-        bDestroy: true,
-        iDisplayLength: 10,
-        order: [
-            [0, "desc"]
-        ]
-    }); //Rutinas
-    tblEnt = $('#tblEnt').DataTable({
-        responsive: true,
-        processing: true,
-        serverSide: false,
-        ajax: {
-            url: base_url + "entrenador/listar",
-            dataSrc: ''
-        },
-        columns: [{
-            'data': 'id'
-        },
-        {
-            'data': 'nombre'
-        },
-        {
-            'data': 'apellido'
-        },
-        {
-            'data': 'telefono'
-        },
-        {
-            'data': 'direccion'
-        },
-        {
-            'data': 'estado'
-        },
-        {
-            'data': 'editar'
-        },
-        {
-            'data': 'eliminar'
-        }
-        ],
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-        },
-        dom,
+    //     resonsieve: true,
+    //     bDestroy: true,
+    //     iDisplayLength: 10,
+    //     order: [
+    //         [0, "desc"]
+    //     ]
+    // }); //Rutinas
+    // tblEnt = $('#tblEnt').DataTable({
+    //     responsive: true,
+    //     processing: true,
+    //     serverSide: false,
+    //     ajax: {
+    //         url: base_url + "entrenador/listar",
+    //         dataSrc: ''
+    //     },
+    //     columns: [{
+    //         'data': 'id'
+    //     },
+    //     {
+    //         'data': 'nombre'
+    //     },
+    //     {
+    //         'data': 'apellido'
+    //     },
+    //     {
+    //         'data': 'telefono'
+    //     },
+    //     {
+    //         'data': 'direccion'
+    //     },
+    //     {
+    //         'data': 'estado'
+    //     },
+    //     {
+    //         'data': 'editar'
+    //     },
+    //     {
+    //         'data': 'eliminar'
+    //     }
+    //     ],
+    //     language: {
+    //         "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+    //     },
+    //     dom,
 
-        resonsieve: true,
-        bDestroy: true,
-        iDisplayLength: 10,
-        order: [
-            [0, "desc"]
-        ]
-    }); //Entrenador
-    tblAsistencias = $('#tblAsistencias').DataTable({
-        responsive: true,
-        processing: true,
-        serverSide: false,
-        ajax: {
-            url: base_url + "asistencias/listar",
-            dataSrc: ''
-        },
-        columns: [{
-            'data': 'id_asistencia'
-        },
-        {
-            'data': 'fecha'
-        },
-        {
-            'data': 'hora_entrada'
-        },
-        {
-            'data': 'hora_salida'
-        },
-        {
-            'data': 'nombre'
-        },
-        {
-            'data': 'entrenador'
-        },
-        {
-            'data': 'descripcion'
-        },
-        {
-            'data': 'status'
-        },
-        {
-            'data': 'editar'
-        }
-        ],
-        createdRow: function (row, data, index) {
-            //pintar una celd
-            if (data.estado == 1) {
-                $('td', row).css({
-                    'background-color': '#ffff52'
-                });
-            }
-        },
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-        },
-        dom,
+    //     resonsieve: true,
+    //     bDestroy: true,
+    //     iDisplayLength: 10,
+    //     order: [
+    //         [0, "desc"]
+    //     ]
+    // }); //Entrenador
+    // tblAsistencias = $('#tblAsistencias').DataTable({
+    //     responsive: true,
+    //     processing: true,
+    //     serverSide: false,
+    //     ajax: {
+    //         url: base_url + "asistencias/listar",
+    //         dataSrc: ''
+    //     },
+    //     columns: [{
+    //         'data': 'id_asistencia'
+    //     },
+    //     {
+    //         'data': 'fecha'
+    //     },
+    //     {
+    //         'data': 'hora_entrada'
+    //     },
+    //     {
+    //         'data': 'hora_salida'
+    //     },
+    //     {
+    //         'data': 'nombre'
+    //     },
+    //     {
+    //         'data': 'entrenador'
+    //     },
+    //     {
+    //         'data': 'descripcion'
+    //     },
+    //     {
+    //         'data': 'status'
+    //     },
+    //     {
+    //         'data': 'editar'
+    //     }
+    //     ],
+    //     createdRow: function (row, data, index) {
+    //         //pintar una celd
+    //         if (data.estado == 1) {
+    //             $('td', row).css({
+    //                 'background-color': '#ffff52'
+    //             });
+    //         }
+    //     },
+    //     language: {
+    //         "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+    //     },
+    //     dom,
 
-        resonsieve: true,
-        bDestroy: true,
-        iDisplayLength: 10,
-        order: [
-            [0, "desc"]
-        ]
-    }); //asistencias
-    tbl = $('#tbl').DataTable({
-        responsive: true,
-        processing: true,
-        serverSide: false,
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-        },
-        dom,
+    //     resonsieve: true,
+    //     bDestroy: true,
+    //     iDisplayLength: 10,
+    //     order: [
+    //         [0, "desc"]
+    //     ]
+    // }); //asistencias
+    // tbl = $('#tbl').DataTable({
+    //     responsive: true,
+    //     processing: true,
+    //     serverSide: false,
+    //     language: {
+    //         "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+    //     },
+    //     dom,
 
-        resonsieve: true,
-        bDestroy: true,
-        iDisplayLength: 10,
-        order: [
-            [0, "asc"]
-        ]
-    }); //Fin de la tabla usuarios
+    //     resonsieve: true,
+    //     bDestroy: true,
+    //     iDisplayLength: 10,
+    //     order: [
+    //         [0, "asc"]
+    //     ]
+    // }); //Fin de la tabla usuarios
 
-    $('#min').change(function (e) {
-        if (e.target.name == 'pagos_min') {
-            tblPago.draw();
-        } else {
-            tblPlanCli.draw();
-        }
-    });
-    $('#max').change(function (e) {
-        if (e.target.name == 'pagos_max') {
-            tblPago.draw();
-        } else {
-            tblPlanCli.draw();
-        }
-    });
+    // $('#min').change(function (e) {
+    //     if (e.target.name == 'pagos_min') {
+    //         tblPago.draw();
+    //     } else {
+    //         tblPlanCli.draw();
+    //     }
+    // });
+    // $('#max').change(function (e) {
+    //     if (e.target.name == 'pagos_max') {
+    //         tblPago.draw();
+    //     } else {
+    //         tblPlanCli.draw();
+    //     }
+    // });
 })
-if (document.getElementById('min') && document.getElementById('max')) {
-    $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-            let desde = $('#min').val();
-            let hasta = $('#max').val();
-            let fecha = data[1].trim();
-            if (desde == '' || hasta == '') {
-                return true;
-            }
-            if (fecha >= desde && fecha <= hasta) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    );
-}
-function frmCambiarPass(e) {
-    e.preventDefault();
-    const actual = document.getElementById('clave_actual').value;
-    const nueva = document.getElementById('clave_nueva').value;
-    const confirmar = document.getElementById('confirmar_clave').value;
-    if (actual == '' || nueva == '' || confirmar == '') {
-        alertas('Todo los campos son obligatorios', 'warning');
-        return false;
-    } else {
-        if (nueva != confirmar) {
-            alertas('Las contraseñas no coinciden', 'warning');
-            return false;
-        } else {
-            const url = base_url + "usuarios/cambiarPass";
-            const frm = document.getElementById("frmCambiarPass");
-            const http = new XMLHttpRequest();
-            http.open("POST", url, true);
-            http.send(new FormData(frm));
-            http.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
+// if (document.getElementById('min') && document.getElementById('max')) {
+//     $.fn.dataTable.ext.search.push(
+//         function (settings, data, dataIndex) {
+//             let desde = $('#min').val();
+//             let hasta = $('#max').val();
+//             let fecha = data[1].trim();
+//             if (desde == '' || hasta == '') {
+//                 return true;
+//             }
+//             if (fecha >= desde && fecha <= hasta) {
+//                 return true;
+//             } else {
+//                 return false;
+//             }
+//         }
+//     );
+// }
+// function frmCambiarPass(e) {
+//     e.preventDefault();
+//     const actual = document.getElementById('clave_actual').value;
+//     const nueva = document.getElementById('clave_nueva').value;
+//     const confirmar = document.getElementById('confirmar_clave').value;
+//     if (actual == '' || nueva == '' || confirmar == '') {
+//         alertas('Todo los campos son obligatorios', 'warning');
+//         return false;
+//     } else {
+//         if (nueva != confirmar) {
+//             alertas('Las contraseñas no coinciden', 'warning');
+//             return false;
+//         } else {
+//             const url = base_url + "usuarios/cambiarPass";
+//             const frm = document.getElementById("frmCambiarPass");
+//             const http = new XMLHttpRequest();
+//             http.open("POST", url, true);
+//             http.send(new FormData(frm));
+//             http.onreadystatechange = function () {
+//                 if (this.readyState == 4 && this.status == 200) {
 
-                    const res = JSON.parse(this.responseText);
-                    alertas(res.msg, res.icono);
-                    myModal.hide();
-                    frm.reset();
-                }
-            }
-        }
-    }
-}
+//                     const res = JSON.parse(this.responseText);
+//                     alertas(res.msg, res.icono);
+//                     myModal.hide();
+//                     frm.reset();
+//                 }
+//             }
+//         }
+//     }
+// }
 
 function frmUsuario() {
     document.getElementById("title").textContent = "Nuevo Usuario";
@@ -760,31 +760,31 @@ function btnEliminarPlan(id) {
         }
     })
 }
-function registrarPlanCliente(e) {
-    e.preventDefault();
-    const id_cli = document.getElementById("id_cli").value;
-    const id_plan = document.getElementById("id_plan").value;
-    const cliente = document.getElementById("select_cliente").value;
-    const plan = document.getElementById("buscar_planes").value;
-    if (id_cli == '' || id_plan == '' || cliente == '' || plan == '') {
-        alertas('Todo los campos son obligatorios', 'warning');
-    } else {
-        const url = base_url + "planes/registrarPlanCliente";
-        const frm = document.getElementById("formulario");
-        const http = new XMLHttpRequest();
-        http.open("POST", url, true);
-        http.send(new FormData(frm));
-        http.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+// function registrarPlanCliente(e) {
+//     e.preventDefault();
+//     const id_cli = document.getElementById("id_cli").value;
+//     const id_plan = document.getElementById("id_plan").value;
+//     const cliente = document.getElementById("select_cliente").value;
+//     const plan = document.getElementById("buscar_planes").value;
+//     if (id_cli == '' || id_plan == '' || cliente == '' || plan == '') {
+//         alertas('Todo los campos son obligatorios', 'warning');
+//     } else {
+//         const url = base_url + "planes/registrarPlanCliente";
+//         const frm = document.getElementById("formulario");
+//         const http = new XMLHttpRequest();
+//         http.open("POST", url, true);
+//         http.send(new FormData(frm));
+//         http.onreadystatechange = function () {
+//             if (this.readyState == 4 && this.status == 200) {
 
-                const res = JSON.parse(this.responseText);
-                alertas(res.msg, res.icono);
-                frm.reset();
-                tblPlanCli.ajax.reload();
-            }
-        }
-    }
-}
+//                 const res = JSON.parse(this.responseText);
+//                 alertas(res.msg, res.icono);
+//                 frm.reset();
+//                 tblPlanCli.ajax.reload();
+//             }
+//         }
+//     }
+// }
 //Fin Planes
 function frmPagos() {
     document.getElementById("title").textContent = "Nuevo Medida";
@@ -1014,52 +1014,52 @@ function editarAsist(id) {
         }
     })
 }
-function modificarEmpresa(e) {
-    e.preventDefault();
-    const id = document.getElementById("id").value;
-    const ruc = document.getElementById("ruc").value;
-    const nombre = document.getElementById("nombre").value;
-    const telefono = document.getElementById("telefono").value;
-    const direccion = document.getElementById("direccion").value;
-    const limite = document.getElementById("limite").value;
+// function modificarEmpresa(e) {
+//     e.preventDefault();
+//     const id = document.getElementById("id").value;
+//     const ruc = document.getElementById("ruc").value;
+//     const nombre = document.getElementById("nombre").value;
+//     const telefono = document.getElementById("telefono").value;
+//     const direccion = document.getElementById("direccion").value;
+//     const limite = document.getElementById("limite").value;
 
-    if (id == '' || ruc == '' || nombre == '' || telefono == '' || direccion == '' || limite == '') {
-        alertas('Todo los campos son requerido', 'warning');
-        return false;
-    } else {
-        const frm = document.getElementById('frmEmpresa');
-        const url = base_url + "administracion/modificar";
-        const http = new XMLHttpRequest();
-        let frmData = new FormData(frm);
-        http.open("POST", url, true);
-        http.upload.addEventListener('progress', function () {
-            document.getElementById('btnAccion').textContent = 'Procesando...';
-        });
-        http.send(frmData);
-        http.addEventListener('load', function () {
-            document.getElementById('btnAccion').textContent = 'Modificar';
-        });
-        http.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                const res = JSON.parse(this.responseText);
-                alertas(res.msg, res.icono);
-            }
-        }
-    }
-}
-function mostrarTodo(e) {
-    document.getElementById('min').value = '';
-    document.getElementById('max').value = '';
-    if (e.target.name == 'pagos') {
-        tblPago.draw();
-    } else if (e.target.name == 'aprobadas') {
-        solicitud_aprob.draw();
-    } else if (e.target.name == 'solicitud_pent') {
-        solicitud_pent.draw();
-    } else {
-        tblPlanCli.draw();
-    }
-}
+//     if (id == '' || ruc == '' || nombre == '' || telefono == '' || direccion == '' || limite == '') {
+//         alertas('Todo los campos son requerido', 'warning');
+//         return false;
+//     } else {
+//         const frm = document.getElementById('frmEmpresa');
+//         const url = base_url + "administracion/modificar";
+//         const http = new XMLHttpRequest();
+//         let frmData = new FormData(frm);
+//         http.open("POST", url, true);
+//         http.upload.addEventListener('progress', function () {
+//             document.getElementById('btnAccion').textContent = 'Procesando...';
+//         });
+//         http.send(frmData);
+//         http.addEventListener('load', function () {
+//             document.getElementById('btnAccion').textContent = 'Modificar';
+//         });
+//         http.onreadystatechange = function () {
+//             if (this.readyState == 4 && this.status == 200) {
+//                 const res = JSON.parse(this.responseText);
+//                 alertas(res.msg, res.icono);
+//             }
+//         }
+//     }
+// }
+// function mostrarTodo(e) {
+//     document.getElementById('min').value = '';
+//     document.getElementById('max').value = '';
+//     if (e.target.name == 'pagos') {
+//         tblPago.draw();
+//     } else if (e.target.name == 'aprobadas') {
+//         solicitud_aprob.draw();
+//     } else if (e.target.name == 'solicitud_pent') {
+//         solicitud_pent.draw();
+//     } else {
+//         tblPlanCli.draw();
+//     }
+// }
 function buscarPlanCli(id_cli) {
     const id = document.getElementById('id_cli').value;
     if (id == '') {
@@ -1107,178 +1107,178 @@ function aprobarSolicitud(id) {
         }
     })
 }
-function pagoPlan(id) {
-    const url = base_url + 'clientes/ver/' + id;
-    const http = new XMLHttpRequest();
-    http.open("GET", url, true);
-    http.send();
-    http.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            const res = JSON.parse(this.responseText);
-            document.getElementById('id').value = res.id;
-            document.getElementById('cliente').value = res.nombre;
-            document.getElementById('plan').value = res.plan;
-            $('#myModal').modal('show');
-        }
-    }
-}
-function generarPago() {
-    Swal.fire({
-        title: 'Procesar Pago?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si!',
-        cancelButtonText: 'No'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            const url = base_url + 'clientes/procesarPago/' + document.getElementById('id').value;
-            const http = new XMLHttpRequest();
-            http.open("GET", url, true);
-            http.send();
-            http.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    const res = JSON.parse(this.responseText);
-                    alertas(res.msg, res.icono);
-                    $('#myModal').modal('hide');
-                    tblPlanCli.ajax.reload();
-                    if (res.icono == 'success') {
-                        setTimeout(() => {
-                            window.open(base_url + 'clientes/pdfPago/' + res.id_pago);
-                        }, 2000);
-                    }
-                }
-            }
-        }
-    })
-}
-function desactivar(id) {
-    Swal.fire({
-        title: 'Esta seguro de desactivar?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si!',
-        cancelButtonText: 'No'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            const url = base_url + 'planes/desactivar/' + id;
-            const http = new XMLHttpRequest();
-            http.open("GET", url, true);
-            http.send();
-            http.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
+// function pagoPlan(id) {
+//     const url = base_url + 'clientes/ver/' + id;
+//     const http = new XMLHttpRequest();
+//     http.open("GET", url, true);
+//     http.send();
+//     http.onreadystatechange = function () {
+//         if (this.readyState == 4 && this.status == 200) {
+//             const res = JSON.parse(this.responseText);
+//             document.getElementById('id').value = res.id;
+//             document.getElementById('cliente').value = res.nombre;
+//             document.getElementById('plan').value = res.plan;
+//             $('#myModal').modal('show');
+//         }
+//     }
+// }
+// function generarPago() {
+//     Swal.fire({
+//         title: 'Procesar Pago?',
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Si!',
+//         cancelButtonText: 'No'
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             const url = base_url + 'clientes/procesarPago/' + document.getElementById('id').value;
+//             const http = new XMLHttpRequest();
+//             http.open("GET", url, true);
+//             http.send();
+//             http.onreadystatechange = function () {
+//                 if (this.readyState == 4 && this.status == 200) {
+//                     const res = JSON.parse(this.responseText);
+//                     alertas(res.msg, res.icono);
+//                     $('#myModal').modal('hide');
+//                     tblPlanCli.ajax.reload();
+//                     if (res.icono == 'success') {
+//                         setTimeout(() => {
+//                             window.open(base_url + 'clientes/pdfPago/' + res.id_pago);
+//                         }, 2000);
+//                     }
+//                 }
+//             }
+//         }
+//     })
+// }
+// function desactivar(id) {
+//     Swal.fire({
+//         title: 'Esta seguro de desactivar?',
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Si!',
+//         cancelButtonText: 'No'
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             const url = base_url + 'planes/desactivar/' + id;
+//             const http = new XMLHttpRequest();
+//             http.open("GET", url, true);
+//             http.send();
+//             http.onreadystatechange = function () {
+//                 if (this.readyState == 4 && this.status == 200) {
 
-                    const res = JSON.parse(this.responseText);
-                    alertas(res.msg, res.icono);
-                    tblPlanCli.ajax.reload();
-                }
-            }
-        }
-    })
-}
-function actualizarGrafico() {
-    const anio = document.getElementById('year').value;
-    let ctx = document.getElementById('ProductosVendidos').getContext('2d');
-    if (myChart) {
-        myChart.destroy();
-    }
-    const url = base_url + 'Administracion/actualizarGrafico/' + anio;
-    const http = new XMLHttpRequest();
-    http.open("GET", url, true);
-    http.send();
-    http.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            const res = JSON.parse(this.responseText);
-            myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                    datasets: [{
-                        label: 'Ingreso por Mes',
-                        data: [res.ene, res.feb, res.mar, res.abr, res.may, res.jun, res.jul, res.ago, res.sep, res.oct, res.nov, res.dic],
-                        backgroundColor: [
-                            'rgb(255, 202, 240)'
-                        ]
-                    }]
-                },
-                options: {
-                    indexAxis: 'x',
-                    // Elements options apply to all of the options unless overridden in a dataset
-                    // In this case, we are setting the border of each horizontal bar to be 2px wide
-                    elements: {
-                        bar: {
-                            borderWidth: 2,
-                        }
-                    },
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        title: {
-                            display: false,
-                            text: 'Pagos por Mes'
-                        }
-                    }
-                },
-            });
-        }
-    }
-}
-function ventasDia() {
-    let ctx = document.getElementById('ventaDia').getContext('2d');
-    const url = base_url + 'Administracion/getVentas';
-    const http = new XMLHttpRequest();
-    http.open("GET", url, true);
-    http.send();
-    http.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            const res = JSON.parse(this.responseText);
-            let nombre = [];
-            let cantidad = [];
-            for (let i = 0; i < res.length; i++) {
-                nombre.push(res[i]['plan']);
-                cantidad.push(res[i]['total']);
-            }
-            let my_Chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: nombre,
-                    datasets: [{
-                        label: 'Ingreso por Día',
-                        data: cantidad,
-                        backgroundColor: [
-                            'rgb(200, 0, 00)'
-                        ]
-                    }]
-                },
-                options: {
-                    indexAxis: 'x',
-                    // Elements options apply to all of the options unless overridden in a dataset
-                    // In this case, we are setting the border of each horizontal bar to be 2px wide
-                    elements: {
-                        bar: {
-                            borderWidth: 2,
-                        }
-                    },
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        title: {
-                            display: true,
-                            text: 'Ventas por Día'
-                        }
-                    }
-                },
-            });
-        }
-    }
-}
+//                     const res = JSON.parse(this.responseText);
+//                     alertas(res.msg, res.icono);
+//                     tblPlanCli.ajax.reload();
+//                 }
+//             }
+//         }
+//     })
+// }
+// function actualizarGrafico() {
+//     const anio = document.getElementById('year').value;
+//     let ctx = document.getElementById('ProductosVendidos').getContext('2d');
+//     if (myChart) {
+//         myChart.destroy();
+//     }
+//     const url = base_url + 'Administracion/actualizarGrafico/' + anio;
+//     const http = new XMLHttpRequest();
+//     http.open("GET", url, true);
+//     http.send();
+//     http.onreadystatechange = function () {
+//         if (this.readyState == 4 && this.status == 200) {
+//             const res = JSON.parse(this.responseText);
+//             myChart = new Chart(ctx, {
+//                 type: 'bar',
+//                 data: {
+//                     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+//                     datasets: [{
+//                         label: 'Ingreso por Mes',
+//                         data: [res.ene, res.feb, res.mar, res.abr, res.may, res.jun, res.jul, res.ago, res.sep, res.oct, res.nov, res.dic],
+//                         backgroundColor: [
+//                             'rgb(255, 202, 240)'
+//                         ]
+//                     }]
+//                 },
+//                 options: {
+//                     indexAxis: 'x',
+//                     // Elements options apply to all of the options unless overridden in a dataset
+//                     // In this case, we are setting the border of each horizontal bar to be 2px wide
+//                     elements: {
+//                         bar: {
+//                             borderWidth: 2,
+//                         }
+//                     },
+//                     responsive: true,
+//                     plugins: {
+//                         legend: {
+//                             position: 'top',
+//                         },
+//                         title: {
+//                             display: false,
+//                             text: 'Pagos por Mes'
+//                         }
+//                     }
+//                 },
+//             });
+//         }
+//     }
+// }
+// function ventasDia() {
+//     let ctx = document.getElementById('ventaDia').getContext('2d');
+//     const url = base_url + 'Administracion/getVentas';
+//     const http = new XMLHttpRequest();
+//     http.open("GET", url, true);
+//     http.send();
+//     http.onreadystatechange = function () {
+//         if (this.readyState == 4 && this.status == 200) {
+//             const res = JSON.parse(this.responseText);
+//             let nombre = [];
+//             let cantidad = [];
+//             for (let i = 0; i < res.length; i++) {
+//                 nombre.push(res[i]['plan']);
+//                 cantidad.push(res[i]['total']);
+//             }
+//             let my_Chart = new Chart(ctx, {
+//                 type: 'bar',
+//                 data: {
+//                     labels: nombre,
+//                     datasets: [{
+//                         label: 'Ingreso por Día',
+//                         data: cantidad,
+//                         backgroundColor: [
+//                             'rgb(200, 0, 00)'
+//                         ]
+//                     }]
+//                 },
+//                 options: {
+//                     indexAxis: 'x',
+//                     // Elements options apply to all of the options unless overridden in a dataset
+//                     // In this case, we are setting the border of each horizontal bar to be 2px wide
+//                     elements: {
+//                         bar: {
+//                             borderWidth: 2,
+//                         }
+//                     },
+//                     responsive: true,
+//                     plugins: {
+//                         legend: {
+//                             position: 'top',
+//                         },
+//                         title: {
+//                             display: true,
+//                             text: 'Ventas por Día'
+//                         }
+//                     }
+//                 },
+//             });
+//         }
+//     }
+// }
 function registrarPago(e) {
     e.preventDefault();
     const id = document.getElementById('id_planCliente').value;
@@ -1311,11 +1311,11 @@ function registrarPago(e) {
         }
     }
 }
-function alertas(mensaje, icono) {
-    Snackbar.show({
-        text: mensaje,
-        pos: 'top-right',
-        backgroundColor: icono == 'success' ? '#079F00' : '#FF0303',
-        actionText: 'Cerrar'
-    });
-}
+// function alertas(mensaje, icono) {
+//     Snackbar.show({
+//         text: mensaje,
+//         pos: 'top-right',
+//         backgroundColor: icono == 'success' ? '#079F00' : '#FF0303',
+//         actionText: 'Cerrar'
+//     });
+// }
