@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use App\Models\Coach;
 use App\Models\Company;
 use App\Models\Customer;
+use App\Models\Plan;
 
 class HomeController
 {
@@ -12,9 +13,11 @@ class HomeController
     {
         $customers = Customer::count();
         $coaches = Coach::count();
+        $plans = Plan::get();
         $data = [
             'customers' => $customers,
-            'coaches' => $coaches
+            'coaches' => $coaches,
+            'plans' => $plans
         ];
         echo json_encode($data);
     }

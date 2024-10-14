@@ -179,22 +179,7 @@
 
 		<div class="container">
 			<div class="row align-items-center">
-				<div class="col-lg-12 testimonial-wrap-2">
-					<div class="testimonial-block style-2  gray-bg">
-						<i class="icofont-quote-right"></i>
-
-						<div class="testimonial-thumb">
-							<img src="/melody/images/planes/" alt="" class="img-fluid">
-						</div>
-
-						<div class="client-info ">
-							<h4></h4>
-							<span></span>
-							<p>
-							</p>
-						</div>
-					</div>
-				</div>
+				<div class="col-lg-12 testimonial-wrap-2" id="plans"></div>
 			</div>
 		</div>
 	</section>
@@ -309,6 +294,21 @@
 			success: function(response) {
 				$('#customer-counter').attr('data-count', response.customers);
 				$('#coach-counter').attr('data-count', response.coaches);
+				var html = '';
+				response.plans.forEach(e => {
+					html += `<div class="testimonial-block style-2 gray-bg">
+						<i class="icofont-quote-right"></i>
+						<div class="testimonial-thumb">
+							<img src="${e.image}" alt="" class="img-fluid">
+						</div>
+						<div class="client-info">
+							<h4>${e.name}</h4>
+							<span>${e.price}</span>
+							<p>${e.description} - ${e.condition}</p>
+						</div>
+					</div>`;
+				});
+				$('#plans').html(html);
 			}
 		});
 	</script>
