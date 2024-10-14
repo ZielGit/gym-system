@@ -8,6 +8,11 @@ use App\Models\Customer;
 use App\Models\Payment;
 use Config\Pdf;
 use Core\Request;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\RoundBlockSizeMode;
+use Endroid\QrCode\Writer\PngWriter;
 
 class CustomerController
 {
@@ -87,9 +92,27 @@ class CustomerController
     {
         $payments = Payment::find($id);
         $company = Company::find(1);
+        $datos_qr = $company->ruc . '|' . $payments->price . '|' .
+            $payments->date . '|' . $payments->customer->document_type . '|'.
+            $payments->customer->document_number . '|';
+
+        // Generar el código QR usando endroid/qr-code
+        $result = Builder::create()
+            ->writer(new PngWriter()) // Definir el formato PNG
+            ->data($datos_qr)         // Datos para el QR
+            ->encoding(new Encoding('UTF-8')) // Codificación
+            ->errorCorrectionLevel(ErrorCorrectionLevel::High) // Nivel de corrección de errores
+            ->size(150)               // Tamaño del código QR
+            ->margin(10)              // Margen del código QR
+            ->roundBlockSizeMode(RoundBlockSizeMode::Margin)
+            ->build();                // Construir el código QR
+
+        // Convertir la imagen del código QR a Base64
+        $qrCodeBase64 = base64_encode($result->getString());
         $data = [
             'payment' => $payments->load('customer', 'plan'),
-            'company' => $company
+            'company' => $company,
+            'qr_code_base64' => $qrCodeBase64 // Pasamos el QR en base64 a la vista
         ];
         $pdf = new Pdf();
         $html = $pdf->loadView('admin.pdf.invoice', ['data' => $data]);

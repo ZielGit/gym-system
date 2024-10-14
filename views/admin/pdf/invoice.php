@@ -161,7 +161,6 @@
             </tr>
         </table>
     </div>
-
     <div class="payment-details">
         <h3>PAYMENT DETAILS</h3>
         <p>Bank of Banks</p>
@@ -169,7 +168,7 @@
         <p>Account Number: 123456678</p>
         <p>Payment Reference: BRA-00335</p>
     </div>
-
+    <img src="data:image/png;base64,<?= $data['qr_code_base64'] ?>" alt="QR Code" width="">
     <div class="notes">
         <p><strong>Notes:</strong> Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
     </div>
