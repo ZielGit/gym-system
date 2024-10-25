@@ -32,6 +32,6 @@ php -S localhost:8080 -t .
 ## Credenciales
 
 ```
-usuario: admin
-password: admin12345
+usuario: frans@gmail.com
+password: password
 ```
