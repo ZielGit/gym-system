@@ -14427,8 +14427,8 @@ input[type="button"].btn-block {
 .list-group-item.active {
   z-index: 2;
   color: #fff;
-  background-color: #04b76b;
-  border-color: #04b76b;
+  background-color: #007bff;
+  border-color: #007bff;
 }
 
 .list-group-flush .list-group-item {
@@ -15326,7 +15326,7 @@ button.bg-info:focus,
 }
 
 .bg-warning, .settings-panel .color-tiles .tiles.warning, .datepicker-custom .datepicker.datepicker-inline .datepicker-days .table-condensed tbody tr td.day.active:before {
-  background-color: #3cd7e3 !important;
+  background-color: #F5A623 !important;
 }
 
 a.bg-warning:hover, .settings-panel .color-tiles a.tiles.warning:hover, a.bg-warning:focus, .settings-panel .color-tiles a.tiles.warning:focus,
@@ -18877,7 +18877,7 @@ input:focus {
 }
 
 .navbar.default-layout-navbar .navbar-brand-wrapper {
-  background: #aff4f7;
+  background: #ffffff;
   transition: width 0.25s ease, background 0.25s ease;
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
@@ -18928,7 +18928,7 @@ input:focus {
 }
 
 .navbar.default-layout-navbar .navbar-menu-wrapper {
-  background: #aff4f7;;
+  background: #ffffff;
   transition: width 0.25s ease, background 0.25s ease;
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
@@ -19851,7 +19851,7 @@ html {
 }
 
 .content-wrapper {
-  background-color: white;
+  background: #f2f2f2;
   padding: 1.5rem 1.7rem;
   width: 100%;
   -webkit-flex-grow: 1;
@@ -29041,7 +29041,7 @@ div.tagsinput span.tag a {
 /* === Landing screens === */
 /* Auth */
 .auth .login-half-bg {
-  background: url("../images/auth/1.png");
+  background: url("../images/auth/login-bg.jpg");
   background-size: cover;
 }
 
@@ -29368,10 +29368,6 @@ div.tagsinput span.tag a {
 .profile-page .profile-body .tab-body .stages .file-icon-wrapper .file-icon i {
   font-size: 43px;
   margin-right: 0;
-}
-
-.ui-autocomplete {
-  z-index: 99999999 !important;
 }
 
 /*# sourceMappingURL=maps/style.css.map */
