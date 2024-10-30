@@ -36,7 +36,7 @@ class PlanController
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/public/files/plans/image/';
+            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/files/plans/image/';
             // Verifica si la carpeta existe, si no, la crea
             if (!file_exists($destination_folder)) {
                 mkdir($destination_folder, 0777, true);
@@ -84,7 +84,7 @@ class PlanController
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/public/files/plans/image/';
+            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/files/plans/image/';
             // Verifica si la carpeta existe, si no, la crea
             if (!file_exists($destination_folder)) {
                 mkdir($destination_folder, 0777, true);

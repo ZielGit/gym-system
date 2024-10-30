@@ -35,7 +35,7 @@ class UserController
         ];
         if ($request->hasFile('profile_photo')) {
             $image = $request->file('profile_photo');
-            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/public/files/users/image/';
+            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/files/users/image/';
             // Verifica si la carpeta existe, si no, la crea
             if (!file_exists($destination_folder)) {
                 mkdir($destination_folder, 0777, true);
@@ -85,7 +85,7 @@ class UserController
         }
         if ($request->hasFile('profile_photo')) {
             $image = $request->file('profile_photo');
-            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/public/files/users/image/';
+            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/files/users/image/';
             // Verifica si la carpeta existe, si no, la crea
             if (!file_exists($destination_folder)) {
                 mkdir($destination_folder, 0777, true);

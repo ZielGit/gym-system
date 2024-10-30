@@ -36,7 +36,7 @@ class CompanyController
 
         if ($request->hasFile('logo_path')) {
             $image = $request->file('logo_path');
-            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/public/files/companies/image/';
+            $destination_folder = $_SERVER['DOCUMENT_ROOT'] . '/files/companies/image/';
             // Verifica si la carpeta existe, si no, la crea
             if (!file_exists($destination_folder)) {
                 mkdir($destination_folder, 0777, true);
