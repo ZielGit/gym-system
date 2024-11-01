@@ -6,7 +6,7 @@
                     <div class="logo mb-4">
                         <img src="" alt="" class="img-fluid img-logo">
                     </div>
-                    <p>Tempora dolorem voluptatum nam vero assumenda voluptate, facilis ad eos obcaecati tenetur veritatis eveniet distinctio possimus.</p>
+                    <p>El apoyo y espacio ideal que necesitas para entrenar, superar tus límites y alcanzar tus objetivos, lo encontrarás en nuestro gimnasio.</p>
 
                     <ul class="list-inline footer-socials mt-4">
                         <li class="list-inline-item">
