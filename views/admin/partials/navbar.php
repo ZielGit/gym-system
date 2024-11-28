@@ -1,7 +1,7 @@
-<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
+<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar navbar-primary">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="dashboard">GYM</a>
-        <a class="navbar-brand brand-logo-mini" href="dashboard">GYM</a>
+        <a class="navbar-brand brand-logo" href="dashboard"><strong>GYM</strong></a>
+        <a class="navbar-brand brand-logo-mini" href="dashboard"><strong>GYM</strong></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
