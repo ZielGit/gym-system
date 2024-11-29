@@ -61,7 +61,7 @@ startSection('title'); ?>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
-                                    <label for="routines"><i class="fas fa-list"></i> Buscar Asistencia</label>
+                                    <label for="routines"><i class="fas fa-list"></i> Buscar Rutina</label>
                                     <input type="hidden" id="routine_id" name="routine_id" required>
                                     <input type="text" id="routines" placeholder="Buscar..." class="form-control" required>
                                 </div>
