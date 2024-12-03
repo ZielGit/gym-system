@@ -15,9 +15,9 @@ startSection('title'); ?>
 					<div class="block">
 						<div class="divider mb-3"></div>
 						<span class="text-uppercase text-sm letter-spacing text-white">Ponte en forma</span>
-						<h1 class="mb-3 mt-3 shadow-white">Lorem ipsum dolor sit amet.</h1>
+						<h1 class="mb-3 mt-3 shadow-white">Alcanza tu mejor versión.</h1>
 						
-						<p class="mb-4 pr-5 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis provident placeat, at ratione ullam cumque.</p>
+						<p class="mb-4 pr-5 text-white">Entrena, supera tus límites y alcanza tus objetivos con un espacio equipado, entrenadores especializados y programas diseñados para mejorar tu fuerza, resistencia y bienestar.</p>
 					</div>
 				</div>
 			</div>
@@ -94,7 +94,7 @@ startSection('title'); ?>
 					<div class="section-title text-center">
 						<h2>Nuestros planes</h2>
 						<div class="divider mx-auto my-4"></div>
-						<p>Lets know moreel necessitatibus dolor asperiores illum possimus sint voluptates incidunt molestias nostrum laudantium. Maiores porro cumque quaerat.</p>
+						<p>Elige el plan que mejor se adapte a tus objetivos y empieza a entrenar hoy. Contamos con opciones flexibles para que puedas disfrutar de nuestras instalaciones y llevar tu entrenamiento al siguiente nivel.</p>
 					</div>
 				</div>
 			</div>
@@ -137,7 +137,7 @@ startSection('title'); ?>
 					html += `<div class="testimonial-block style-2 gray-bg">
 						<i class="icofont-quote-right"></i>
 						<div class="testimonial-thumb">
-							<img src="${e.image}" alt="" class="img-fluid">
+							<img src="${e.image || '/images/default.png'}" alt="" class="img-fluid">
 						</div>
 						<div class="client-info">
 							<h4>${e.name}</h4>
