@@ -16,7 +16,6 @@ startSection('title'); ?>
                         <tr>
                             <th>Nro</th>
                             <th>Nombre</th>
-                            <th>Descripción</th>
                             <th>Precio</th>
                             <th>Condición</th>
                             <th>Estado</th>
@@ -107,7 +106,6 @@ startSection('title'); ?>
             columns: [
                 { 'data': 'id' },
                 { 'data': 'name' },
-                { 'data': 'description' },
                 { 'data': 'price' },
                 { 'data': 'condition' },
                 {
