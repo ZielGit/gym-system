@@ -54,9 +54,7 @@ startSection('title'); ?>
                 <table class="table table-striped table-hover display responsive nowrap" id="tablaPlanCliente" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>F. registro</th>
-                            <th>N° Doc.</th>
                             <th>Cliente</th>
                             <th>Plan</th>
                             <th>P. Plan</th>
@@ -193,9 +191,7 @@ startSection('title'); ?>
                 },
             },
             columns: [
-                { 'data': 'id' },
                 { 'data': 'date' },
-                { 'data': 'customer.document_number' },
                 { 'data': 'customer.name' },
                 { 'data': 'plan.name' },
                 { 'data': 'plan.price' },
@@ -204,9 +200,9 @@ startSection('title'); ?>
                     data: 'id',
                     render: function (data, type, full) {
                         if (full.status == 1) {
-                            return `<span class="badge bg-success">Habilitado</span>`
+                            return `<span class="badge badge-success badge-pill">Habilitado</span>`
                         } else {
-                            return `<span class="badge bg-danger">Deshabilitado</span>`;
+                            return `<span class="badge badge-danger badge-pill">Deshabilitado</span>`;
                         }
                     }
                 },
@@ -240,12 +236,8 @@ startSection('title'); ?>
                 var nuevoDia = ('0' + yourDate.getDate()).slice(-2);
                 var current_date = nuevoAnio + '-' + nuevoMes + '-' + nuevoDia;
                 if (data.due_date < current_date) {
-                    $('td', row).eq(6).html('<span class="badge bg-danger">' + data.due_date + '</span>');
-                }
-                if (data.due_date < current_date) {
-                    $('td', row).css({
-                        'background-color': '#ffff52'
-                    });
+                    $('td', row).eq(4).html('<span class="badge badge-danger badge-pill">' + data.due_date + '</span>');
+                    $(row).addClass('table-warning');
                 }
             },
             resonsieve: true,
