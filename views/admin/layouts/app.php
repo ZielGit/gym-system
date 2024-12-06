@@ -56,7 +56,6 @@
     <!-- endinject -->
     <script src="/melody/js/sweetalert2.all.min.js"></script>
     <script src="/melody/js/chart.min.js"></script>
-    <script src="/melody/js/funciones.js"></script>
     <script>
         const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
         const token = localStorage.getItem('token');
