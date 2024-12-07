@@ -68,6 +68,8 @@ startSection('title'); ?>
 <?php endSection(); ?>
 <?php startSection('scripts'); ?>
     <script>
+        var myChart;
+
         $.ajax({
             type: "get",
             url: `${api_admin_url}/dashboard`,
