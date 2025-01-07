@@ -27,7 +27,7 @@
   <meta name="theme-name" content="novena" />
 
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="/novena/images/favicon.png" />
 
   <!-- Essential stylesheets -->
   <link rel="stylesheet" href="/novena/plugins/bootstrap/bootstrap.min.css">
