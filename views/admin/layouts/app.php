@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/melody/vendors/css/vendor.bundle.addons.css">
     <link rel="stylesheet" href="/melody/css/style.css">
     <link rel="stylesheet" href="/melody/css/snackbar.min.css">
-    <link href="/melody/css/jquery-ui.min.css" rel="stylesheet" />
     <?php yieldContent('styles'); ?>
     <!-- endinject -->
     <link rel="shortcut icon" href="/melody/images/favicon.png" />
@@ -51,7 +50,6 @@
     <script src="/melody/js/off-canvas.js"></script>
     <script src="/melody/js/hoverable-collapse.js"></script>
     <script src="/melody/js/misc.js"></script>
-    <script src="/melody/js/jquery-ui.min.js"></script>
     <script src="/melody/js/snackbar.min.js"></script>
     <!-- endinject -->
     <script src="/melody/js/sweetalert2.all.min.js"></script>
