@@ -52,7 +52,8 @@
     <script src="/melody/js/misc.js"></script>
     <script src="/melody/js/snackbar.min.js"></script>
     <!-- endinject -->
-    <script src="/melody/js/sweetalert2.all.min.js"></script>
+    <!-- Custom js for this page-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/melody/js/chart.min.js"></script>
     <script>
         const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
@@ -98,14 +99,23 @@
         });
 
         function alertas(mensaje, icono) {
-            Snackbar.show({
-                text: mensaje,
-                pos: 'top-right',
-                backgroundColor: icono == 'success' ? '#079F00' : '#FF0303',
-                actionText: 'Cerrar'
+            Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            }).fire({
+                icon: icono,
+                title: mensaje
             });
         }
     </script>
     <?php yieldContent('scripts'); ?>
+    <!-- End custom js for this page-->
 </body>
 </html> 
