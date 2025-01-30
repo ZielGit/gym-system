@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/melody/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="/melody/vendors/css/vendor.bundle.addons.css">
     <link rel="stylesheet" href="/melody/css/style.css">
-    <link rel="stylesheet" href="/melody/css/snackbar.min.css">
     <?php yieldContent('styles'); ?>
     <!-- endinject -->
     <link rel="shortcut icon" href="/melody/images/favicon.png" />
@@ -50,11 +49,9 @@
     <script src="/melody/js/off-canvas.js"></script>
     <script src="/melody/js/hoverable-collapse.js"></script>
     <script src="/melody/js/misc.js"></script>
-    <script src="/melody/js/snackbar.min.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/melody/js/chart.min.js"></script>
     <script>
         const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
         const token = localStorage.getItem('token');
