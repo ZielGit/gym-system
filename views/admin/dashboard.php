@@ -68,7 +68,7 @@ startSection('title'); ?>
 <?php endSection(); ?>
 <?php startSection('scripts'); ?>
     <script>
-        var myChart;
+        let ventasMesChart;
 
         $.ajax({
             type: "get",
@@ -93,8 +93,8 @@ startSection('title'); ?>
         function actualizarGrafico() {
             const anio = document.getElementById('year').value;
             let ctx = document.getElementById('ProductosVendidos').getContext('2d');
-            if (myChart) {
-                myChart.destroy();
+            if (ventasMesChart) {
+                ventasMesChart.destroy();
             }
             $.ajax({
                 type: "get",
@@ -107,35 +107,33 @@ startSection('title'); ?>
                 },
                 dataType: "json",
                 success: function (response) {
-                    myChart = new Chart(ctx, {
+                    ventasMesChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
                             labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
                             datasets: [{
                                 label: 'Ingreso por Mes',
                                 data: [response.ene, response.feb, response.mar, response.abr, response.may, response.jun, response.jul, response.ago, response.sep, response.oct, response.nov, response.dic],
-                                backgroundColor: [
-                                    'rgb(255, 202, 240)'
-                                ]
+                                borderColor: '#fd92e0',
+                                backgroundColor: '#ffcaf0',
+                                borderWidth: 2,
+                                borderSkipped: false,
                             }]
                         },
                         options: {
-                            indexAxis: 'x',
+                            responsive: true,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            },
                             elements: {
-                                bar: {
-                                    borderWidth: 2,
+                                point: {
+                                    radius: 0
                                 }
                             },
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                },
-                                title: {
-                                    display: false,
-                                    text: 'Pagos por Mes'
-                                }
-                            }
                         },
                     });
                 }
@@ -158,35 +156,33 @@ startSection('title'); ?>
                         nombre.push(response[i].name);
                         cantidad.push(response[i].total);
                     }
-                    let my_Chart = new Chart(ctx, {
+                    let ventasDiaChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
                             labels: nombre,
                             datasets: [{
                                 label: 'Ingreso por Día',
                                 data: cantidad,
-                                backgroundColor: [
-                                    'rgb(200, 0, 00)'
-                                ]
+                                borderColor: '#ca2121',
+                                backgroundColor: '#c85151',
+                                borderWidth: 2,
+                                borderSkipped: false,
                             }]
                         },
                         options: {
-                            indexAxis: 'x',
+                            responsive: true,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            },
                             elements: {
-                                bar: {
-                                    borderWidth: 2,
+                                point: {
+                                    radius: 0
                                 }
                             },
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Ventas por Día'
-                                }
-                            }
                         },
                     });
                 }
