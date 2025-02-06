@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Melody Admin</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="/melody/vendors/iconfonts/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css">
   <link rel="stylesheet" href="/melody/vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="/melody/vendors/css/vendor.bundle.addons.css">
   <!-- endinject -->
@@ -32,31 +32,33 @@
               <h6 class="font-weight-light">Happy to see you again!</h6>
               <div class="alert alert-danger d-none" role="alert" id="alerta">
               </div>
-              <div class="form-group">
-                <label for="usuario">Email</label>
-                <div class="input-group">
-                  <div class="input-group-prepend bg-transparent">
-                    <span class="input-group-text bg-transparent border-right-0">
-                      <i class="fa fa-user text-primary"></i>
-                    </span>
+              <form action="#">
+                <div class="form-group">
+                  <label for="usuario">Email</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend bg-transparent">
+                      <span class="input-group-text bg-transparent border-right-0">
+                        <i class="fa fa-user text-primary"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control form-control-lg border-left-0" id="email" placeholder="Email" name="email">
                   </div>
-                  <input type="text" class="form-control form-control-lg border-left-0" id="email" placeholder="Email" name="email">
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="clave">Password</label>
-                <div class="input-group">
-                  <div class="input-group-prepend bg-transparent">
-                    <span class="input-group-text bg-transparent border-right-0">
-                      <i class="fa fa-lock text-primary"></i>
-                    </span>
+                <div class="form-group">
+                  <label for="clave">Password</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend bg-transparent">
+                      <span class="input-group-text bg-transparent border-right-0">
+                        <i class="fa fa-lock text-primary"></i>
+                      </span>
+                    </div>
+                    <input type="password" class="form-control form-control-lg border-left-0" id="password" placeholder="Password">
                   </div>
-                  <input type="password" class="form-control form-control-lg border-left-0" id="password" placeholder="Password">
                 </div>
-              </div>
-              <div class="my-3">
-                <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" id="login">LOGIN</button>
-              </div>
+                <div class="my-3">
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" id="login">LOGIN</button>
+                </div>
+              </form>
             </div>
           </div>
           <div class="col-lg-8 login-half-bg d-flex flex-row">
@@ -77,7 +79,6 @@
   <script src="/melody/js/off-canvas.js"></script>
   <script src="/melody/js/hoverable-collapse.js"></script>
   <script src="/melody/js/misc.js"></script>
-  <script src="/melody/js/sweetalert2.all.min.js"></script>
   <script>
     const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
     var token = localStorage.getItem('token');
@@ -88,6 +89,9 @@
 
     $('#login').click(function(e) {
       e.preventDefault();
+      $('#alerta').addClass('d-none').html('');
+      $('#login').html('<i class="fas fa-spinner fa-spin"></i>');
+      $('#login').attr('disabled', true);
 
       $.ajax({
         type: "post",
@@ -102,6 +106,11 @@
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response.user));
           location.href = '/admin/dashboard';
+        },
+        error: function(xhr) {
+          $('#alerta').html(xhr.responseJSON.message).removeClass('d-none');
+          $('#login').html('LOGIN');
+          $('#login').attr('disabled', false);
         }
       });
     });

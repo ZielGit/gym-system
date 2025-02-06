@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Gimnasio - <?php yieldContent('title'); ?></title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="/melody/vendors/iconfonts/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css">
     <link rel="stylesheet" href="/melody/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="/melody/vendors/css/vendor.bundle.addons.css">
     <link rel="stylesheet" href="/melody/css/style.css">
