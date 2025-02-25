@@ -85,6 +85,7 @@
 
     if (token) {
       console.log('Existe token');
+      location.href = '/admin/dashboard';
     }
 
     $('#login').click(function(e) {
