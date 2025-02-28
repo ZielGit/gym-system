@@ -5,6 +5,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Gimnasio - <?php yieldContent('title'); ?></title>
+    <script>
+        (function () {
+            const token = localStorage.getItem('token');
+
+            function redirectToLogin() {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.replace('/auth/login');
+            }
+
+            if (!token) {
+                redirectToLogin();
+                return;
+            }
+
+            try {
+                const payload = token.split('.')[1];
+                const decodedPayload = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
+
+                if (!decodedPayload.exp || decodedPayload.exp <= Math.floor(Date.now() / 1000)) {
+                    redirectToLogin();
+                }
+            } catch (error) {
+                redirectToLogin();
+            }
+        })();
+    </script>
     <!-- plugins:css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css">
     <link rel="stylesheet" href="/melody/vendors/css/vendor.bundle.base.css">
@@ -56,21 +83,19 @@
         const api_admin_url = "<?php echo $_ENV['API_ADMIN_URL']; ?>";
         const token = localStorage.getItem('token');
 
-        // if (!accessToken) {
-        //     location.href = '/';
-        // }
+        $(document).ajaxError(function(event, xhr) {
+            if (xhr.status === 401) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.replace('/auth/login');
+            }
+        });
 
-        // $.ajaxSetup({
-        //     headers: {
-        //         'Authorization': `Bearer ${token}`,
-        //     },
-        // });
-
-        var user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
         const user_id = user.id;
-        var user_name = user.name;
-        var user_email = user.email;
-        var user_profile_photo_url = user.profile_photo_url;
+        const user_name = user.name || '';
+        const user_email = user.email || '';
+        const user_profile_photo_url = user.profile_photo_url;
 
         $('.user-name').html(user_name);
         $('.user-email').html(user_email);
@@ -90,7 +115,7 @@
                     console.log('response', response);
                     localStorage.removeItem('token');
                     localStorage.removeItem('user');
-                    location.href = '/';
+                    location.href = '/auth/login';
                 }
             });
         });
