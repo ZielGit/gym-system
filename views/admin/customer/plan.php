@@ -15,15 +15,13 @@ startSection('title'); ?>
                     <div class="col-lg-3 col-md-3">
                         <div class="form-group mb-3">
                             <label for="customers"><i class="fas fa-users"></i> Buscar Cliente</label>
-                            <input type="hidden" id="customer_id" name="customer_id" required>
-                            <input type="text" id="customers" placeholder="Buscar..." class="form-control" required>
+                            <select class="form-control" id="customers" required></select>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3">
                         <div class="form-group mb-3">
                             <label for="buscar_planes"><i class="fas fa-lista"></i> Buscar Plan</label>
-                            <input type="hidden" id="plan_id" name="plan_id" required>
-                            <input type="text" id="buscar_planes" class="form-control" placeholder="Buscar..." required>
+                            <select class="form-control" id="buscar_planes" required></select>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3">
@@ -112,9 +110,9 @@ startSection('title'); ?>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
-                                    <input type="hidden" id="plan_detail_id" name="plan_detail_id" required>
                                     <label for="nombre_cliente"><i class="fas fa-users"></i> Buscar Cliente</label>
-                                    <input type="text" id="nombre_cliente" class="form-control" placeholder="Buscar..." required>
+                                    <select class="form-control" id="nombre_cliente" required></select>
+                                    <input type="hidden" id="plan_detail_id" name="plan_detail_id" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -168,6 +166,7 @@ startSection('title'); ?>
                                 <th>Hora</th>
                                 <th>Acciones</th>
                             </tr>
+                        </thead>
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -179,6 +178,136 @@ startSection('title'); ?>
 <?php endSection(); ?>
 <?php startSection('scripts'); ?>
     <script>
+        $('#customers').select2({
+            placeholder: 'Buscar Cliente',
+            language: {
+                noResults: function () {
+                    return "No hay resultado";
+                },
+                searching: function () {
+                    return "Buscando..";
+                }
+            },
+            allowClear: true,
+            closeOnSelect: true,
+            minimumInputLength: 2,
+            ajax: {
+                url: `${api_admin_url}/customers`,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+                data: function (params) {
+                    return {
+                        search: params.term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.map(function (item) {
+                            return {
+                                id: item.id,
+                                text: `${item.name} ${item.lastname}`
+                            };
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+
+        $('#buscar_planes').select2({
+            placeholder: 'Buscar Plan',
+            language: {
+                noResults: function () {
+                    return "No hay resultado";
+                },
+                searching: function () {
+                    return "Buscando..";
+                }
+            },
+            allowClear: true,
+            closeOnSelect: true,
+            minimumInputLength: 3,
+            ajax: {
+                url: `${api_admin_url}/plans`,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+                data: function (params) {
+                    return {
+                        search: params.term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.map(function (item) {
+                            return {
+                                id: item.id,
+                                text: item.name,
+                                price: item.price
+                            };
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+
+        $('#nombre_cliente').select2({
+            placeholder: 'Buscar Cliente',
+            width: '100%',
+            language: {
+                noResults: function () {
+                    return "No hay resultado";
+                },
+                searching: function () {
+                    return "Buscando..";
+                }
+            },
+            allowClear: true,
+            closeOnSelect: true,
+            minimumInputLength: 2,
+            ajax: {
+                url: `${api_admin_url}/customers/plan`,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+                data: function (params) {
+                    return {
+                        search: params.term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.map(function (item) {
+                            return {
+                                id: item.id,
+                                text: `${item.name} ${item.lastname}`,
+                                plan_name: item.plan_details[0].plan.name,
+                                plan_price: item.plan_details[0].plan.price,
+                                due_date: item.plan_details[0].due_date
+                            };
+                        })
+                    };
+                },
+                cache: true,
+            },
+            dropdownParent: $('#modalPago')
+        });
+
+        $('#buscar_planes').on('change', function () {
+            const selectedPlan = $(this).select2('data')[0];
+            $('#precio_plan').val(selectedPlan ? selectedPlan.price : '');
+        });
+
+        $('#nombre_cliente').on('change', function () {
+            const selectedCliente = $(this).select2('data')[0];
+            $('#plan_detail_id').val(selectedCliente ? selectedCliente.id : '');
+            $('#nombre_plan').val(selectedCliente ? selectedCliente.plan_name : '');
+            $('#vencimiento').val(selectedCliente ? selectedCliente.due_date : '');
+            $('#precio').val(selectedCliente ? selectedCliente.plan_price : '');
+        });
+
         tablaPlanCliente = $('#tablaPlanCliente').DataTable({
             responsive: true,
             processing: true,
@@ -248,106 +377,6 @@ startSection('title'); ?>
             ]
         });
 
-        $("#customers").autocomplete({
-            minLength: 2,
-            source: function (request, response) {
-                $.ajax({
-                    url: `${api_admin_url}/customers`,
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                    data: {
-                        search: request.term
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        let results = [];
-                        results = $.map(data, function(item) {
-                            return {
-                                id: item.id,
-                                label: `${item.name} ${item.lastname}`
-                            };
-                        })
-                        response(results);
-                    }
-                });
-            },
-            select: function (event, ui) {
-                document.getElementById('customer_id').value = ui.item.id;
-                // document.getElementById('customers').value = ui.item.label;
-                if (document.getElementById('select_plan')) {
-                    buscarPlanCli(ui.item.id);
-                }
-            }
-        });
-
-        $("#nombre_cliente").autocomplete({
-            minLength: 2,
-            source: function (request, response) {
-                $.ajax({
-                    url: `${api_admin_url}/customers/plan`,
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                    data: {
-                        search: request.term
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        let results = [];
-                        results = $.map(data, function(item) {
-                            return {
-                                id: item.plan_details[0].id,
-                                label: `${item.name} ${item.lastname}`,
-                                plan_name: item.plan_details[0].plan.name,
-                                plan_price: item.plan_details[0].plan.price,
-                                due_date: item.plan_details[0].due_date
-                            };
-                        })
-                        response(results);
-                    }
-                });
-            },
-            select: function (event, ui) {
-                document.getElementById('plan_detail_id').value = ui.item.id;
-                document.getElementById('nombre_plan').value = ui.item.plan_name;
-                document.getElementById('precio').value = ui.item.plan_price;
-                document.getElementById('vencimiento').value = ui.item.due_date;
-            }
-        });
-
-        $("#buscar_planes").autocomplete({
-            minLength: 2,
-            source: function (request, response) {
-                $.ajax({
-                    url: `${api_admin_url}/plans`,
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                    data: {
-                        search: request.term
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        let results = [];
-                        results = $.map(data, function(item) {
-                            return {
-                                id: item.id,
-                                label: item.name,
-                                price: item.price
-                            };
-                        })
-                        response(results);
-                    }
-                });
-            },
-            select: function (event, ui) {
-                document.getElementById('plan_id').value = ui.item.id;
-                // document.getElementById('buscar_planes').value = ui.item.plan;
-                document.getElementById('precio_plan').value = ui.item.price;
-            }
-        });
-
         $('#min').change(function (e) {
             tablaPlanCliente.draw();
         });
@@ -376,13 +405,11 @@ startSection('title'); ?>
 
         function register(e) {
             e.preventDefault();
-            const customer_id = document.getElementById("customer_id").value;
-            const plan_id = document.getElementById("plan_id").value;
-            const customer = document.getElementById("customers").value;
-            const plan = document.getElementById("buscar_planes").value;
+            const customer_id = document.getElementById("customers").value;
+            const plan_id = document.getElementById("buscar_planes").value;
             const due_date = document.getElementById("min").value;
             const limit_date = document.getElementById("max").value;
-            if (customer_id == '' || plan_id == '' || customer == '' || plan == '') {
+            if (customer_id == '' || plan_id == '') {
                 alertas('Todo los campos son obligatorios', 'warning');
             } else {
                 const frm = document.getElementById("formulario");
@@ -532,11 +559,11 @@ startSection('title'); ?>
         function savePago(e) {
             e.preventDefault();
             const plan_detail_id = document.getElementById('plan_detail_id').value;
-            const cliente = document.getElementById('nombre_cliente').value;
+            const cliente_id = document.getElementById('nombre_cliente').value;
             const plan = document.getElementById('nombre_plan').value;
             const precio = document.getElementById('precio').value;
             const vencimiento = document.getElementById('vencimiento').value;
-            if (plan_detail_id == '' || cliente == '' || plan == '' || precio == '' || vencimiento == '') {
+            if (plan_detail_id == '' || cliente_id == '' || plan == '' || precio == '' || vencimiento == '') {
                 alertas('Todo los campos con * son requeridos', 'warning');
             } else {
                 $.ajax({
